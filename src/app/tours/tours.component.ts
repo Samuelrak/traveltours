@@ -11,9 +11,19 @@ export class ToursComponent implements OnInit {
 
   constructor(private toursService: ToursService) {}
 
-  ngOnInit() {
-    this.toursService.getTours().subscribe(data => {
-      this.tours = data;
-    });
+  ngOnInit(): void {
+    this.fetchTours();
+  }
+
+  private fetchTours(): void {
+    this.toursService.getTours().subscribe(
+      (data) => {
+        this.tours = data;
+      },
+      (error) => {
+        console.error('Error fetching tours:', error);
+        // Handle the error as needed, e.g., show an error message to the user.
+      }
+    );
   }
 }

@@ -1,14 +1,11 @@
-<h2>Tours List</h2>
-    <ul>
-      <li *ngFor="let tour of tours">
-        {{ tour.name }}
-        {{ tour.location }}
-        {{ tour.continent }}
-        {{ tour.continent }}
-        {{ tour.start_date }}
-        {{ tour.end_date }}
-        {{ tour.people }}
-        {{ tour.price }}
-        {{ tour.photo }}
-    </li>
-    </ul>
+<h2>Tours: </h2>
+<div *ngFor="let tour of tours" class="tour-box">
+  <p>Name: {{ tour.name }}</p>
+  <p>Location: {{ tour.location }}</p>
+  <p>Continent: {{ tour.continent }}</p>
+  <p>Start Date: {{ tour.start_date }}</p>
+  <p>End Date: {{ tour.end_date }}</p>
+  <p>People: {{ tour.people }}</p>
+  <p>Price: {{ tour.price }}</p>
+  <p>Photo: <img src="{{ tour.photo }}" alt="Tour Photo"></p>
+</div>
