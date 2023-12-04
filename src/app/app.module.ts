@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToursComponent } from './tours/tours.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ToursAddComponent } from './tours-add/tours-add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToursComponent
+    ToursComponent,
+    ToursAddComponent
   ],
   imports: [
     BrowserModule,

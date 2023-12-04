@@ -7,7 +7,7 @@ import { ToursService } from '../tours.service';
   styleUrls: ['./tours.component.css'],
 })
 export class ToursComponent implements OnInit {
-  tours: any[] | undefined;
+  tours: any[] = [];
 
   constructor(private toursService: ToursService) {}
 
@@ -18,12 +18,30 @@ export class ToursComponent implements OnInit {
   private fetchTours(): void {
     this.toursService.getTours().subscribe(
       (data) => {
-        this.tours = data;
+        this.tours = this.formatDates(data);
       },
       (error) => {
         console.error('Error fetching tours:', error);
-        // Handle the error as needed, e.g., show an error message to the user.
       }
     );
+  }
+
+  private formatDates(tours: any[]): any[] {
+    return tours.map((tour) => {
+      return {
+        ...tour,
+        start_date: this.formatDate(tour.start_date),
+        end_date: this.formatDate(tour.end_date),
+      };
+    });
+  }
+
+  private formatDate(dateString: string): string {
+    if (!dateString || dateString === '0000-00-00') {
+      return ''; 
+    }
+
+    const date = new Date(dateString);
+    return date.toLocaleDateString(); 
   }
 }

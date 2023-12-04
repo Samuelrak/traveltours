@@ -1,7 +1,11 @@
 .tour-box {
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid #000000;
+    padding: 5px;
     margin: 10px;
+    margin-right: 50px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 300px;
+    display: inline-block;
   }

@@ -1,11 +1,15 @@
-<h2>Tours: </h2>
+<h2>Tours:</h2>
 <div *ngFor="let tour of tours" class="tour-box">
-  <p>Name: {{ tour.name }}</p>
-  <p>Location: {{ tour.location }}</p>
-  <p>Continent: {{ tour.continent }}</p>
-  <p>Start Date: {{ tour.start_date }}</p>
-  <p>End Date: {{ tour.end_date }}</p>
-  <p>People: {{ tour.people }}</p>
-  <p>Price: {{ tour.price }}</p>
-  <p>Photo: <img src="{{ tour.photo }}" alt="Tour Photo"></p>
+  <div class="tour-info">
+    <p>Name: {{ tour.name }}</p>
+    <p>Location: {{ tour.location }}</p>
+    <p>Continent: {{ tour.continent }}</p>
+    <p>Start Date: {{ tour.start_date }}</p>
+    <p>End Date: {{ tour.end_date }}</p>
+    <p>People: {{ tour.people }}</p>
+    <p>Price: {{ tour.price }}</p>
+  <div class="tour-photo">
+    <p>Photo: <img src="{{ tour.photo }}" alt="Tour Photo"></p>
+  </div>
+  <br>
 </div>
