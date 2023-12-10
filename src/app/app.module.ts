@@ -6,19 +6,17 @@ import { AppComponent } from './app.component';
 import { ToursComponent } from './tours/tours.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToursAddComponent } from './tours-add/tours-add.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ToursComponent,
-    ToursAddComponent
-  ],
+  declarations: [AppComponent, ToursComponent, ToursAddComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
