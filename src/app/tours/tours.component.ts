@@ -38,10 +38,25 @@ export class ToursComponent implements OnInit {
 
   private formatDate(dateString: string): string {
     if (!dateString || dateString === '0000-00-00') {
-      return ''; 
+      return '';
     }
 
     const date = new Date(dateString);
-    return date.toLocaleDateString(); 
+    return date.toLocaleDateString();
+  }
+
+  deleteTour(tourId: number): void {
+    if (confirm('Are you sure you want to delete this tour?')) {
+      this.toursService.deleteTour(tourId).subscribe(
+        (response) => {
+          console.log('Tour deleted successfully:', response);
+          // Refresh the list of tours after deletion
+          this.fetchTours();
+        },
+        (error) => {
+          console.error('Error deleting tour:', error);
+        }
+      );
+    }
   }
 }

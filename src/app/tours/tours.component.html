@@ -8,8 +8,9 @@
     <p>End Date: {{ tour.end_date }}</p>
     <p>People: {{ tour.people }}</p>
     <p>Price: {{ tour.price }}</p>
-  <div class="tour-photo">
-    <p>Photo: <img src="{{ tour.photo }}" alt="Tour Photo"></p>
+    <div class="tour-photo">
+      <p>Photo: <img src="{{ tour.photo }}" alt="Tour Photo"></p>
+    </div>
+    <button (click)="deleteTour(tour.id)">Delete Tour</button>
+    <br>
   </div>
-  <br>
-</div>
