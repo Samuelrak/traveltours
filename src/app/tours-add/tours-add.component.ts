@@ -19,11 +19,14 @@ export class ToursAddComponent implements OnInit {
     photo: [''],
   });
 
+  showMessage: boolean = false;
+  isError: boolean = false;
+  isSuccess: boolean = false;
+  message: string = '';
+
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
-  ngOnInit(): void {
-    // No need for initialization here anymore
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     if (this.tourForm.valid) {
@@ -40,13 +43,52 @@ export class ToursAddComponent implements OnInit {
       this.http.post('http://localhost:5000/add', formData).subscribe(
         (response) => {
           console.log('Response from server:', response);
-          // TODO: Handle te response from server
+
+          // Show success message
+          this.showMessage = true;
+          this.isSuccess = true;
+          this.isError = false;
+          this.message = 'Tour added successfully!';
+
+          // Hide the message after 2 seconds
+          setTimeout(() => {
+            this.hideMessage();
+          }, 2000);
+
+          this.resetForm();
         },
         (error) => {
           console.error('Error:', error);
-          // TODO: Handle errors if there are any
+
+          // Check if there's a specific error message from the server
+          const errorMessage =
+            error.error && error.error.message
+              ? error.error.message
+              : 'Failed to add tour. Please try again.';
+
+          // Show error message
+          this.showMessage = true;
+          this.isSuccess = false;
+          this.isError = true;
+          this.message = errorMessage;
+
+          // Hide the message after 2 seconds
+          setTimeout(() => {
+            this.hideMessage();
+          }, 2000);
         }
       );
     }
+  }
+
+  private hideMessage(): void {
+    this.showMessage = false;
+    this.isSuccess = false;
+    this.isError = false;
+    this.message = '';
+  }
+
+  private resetForm() {
+    this.tourForm.reset();
   }
 }

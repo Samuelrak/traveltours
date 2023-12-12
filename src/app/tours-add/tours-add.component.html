@@ -1,5 +1,6 @@
 <div>
     <h2>Add Tour</h2>
+
     <form [formGroup]="tourForm" (ngSubmit)="onSubmit()">
         <label for="name">Tour Name:</label>
         <input type="text" id="name" formControlName="name">
@@ -26,5 +27,9 @@
         <input type="text" id="photo" formControlName="photo">
 
         <button type="submit" [disabled]="tourForm.invalid">Submit</button>
+
+        <div *ngIf="showMessage" [ngClass]="{'success-message': isSuccess, 'error-message': isError}">
+            {{ message }}
+        </div>
     </form>
 </div>
