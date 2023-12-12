@@ -11,7 +11,7 @@ CREATE TABLE tours (
     end_date DATE NOT NULL,
     people INT(11) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
-    photo VARCHAR(255),
+    photo LONGBLOB,
     UNIQUE KEY unique_tour (name, start_date, end_date)
 );
 

@@ -1,3 +1,5 @@
+import base64
+
 import mysql.connector
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -19,9 +21,14 @@ cursor = db.cursor(dictionary=True)
 
 @app.route('/view')
 def display_tours():
-    cursor.execute('SELECT * FROM tours')
-    tours = cursor.fetchall()
-    return jsonify(tours)
+  cursor.execute('SELECT * FROM tours')
+  tours = cursor.fetchall()
+
+  for tour in tours:
+    if tour['photo']:
+      tour['photo'] = base64.b64encode(tour['photo']).decode('utf-8')
+
+  return jsonify(tours)
 
 @app.route('/add', methods=['POST'])
 def add_tour():
@@ -33,14 +40,17 @@ def add_tour():
         end_date_str = request.form['end_date']
         people = int(request.form['people'])
         price = float(request.form['price'])
+        photo = request.files['photo']
 
         start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
         end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
 
+        photo_content = photo.read()
+
         cursor.execute('''
-            INSERT INTO tours (name, location, continent, start_date, end_date, people, price)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        ''', (name, location, continent, start_date, end_date, people, price))
+            INSERT INTO tours (name, location, continent, start_date, end_date, people, price, photo)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        ''', (name, location, continent, start_date, end_date, people, price, photo_content))
 
         db.commit()
 

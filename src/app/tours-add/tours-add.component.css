@@ -2,13 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Set the height of the container to 100% of the viewport height */
+  height: 100vh; 
 }
 
 form {
-  width: 300px; /* Adjust the width of the form as needed */
+  width: 250px; 
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
