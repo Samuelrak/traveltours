@@ -7,6 +7,7 @@ import { ToursService } from '../tours.service';
   styleUrls: ['./tours.component.css'],
 })
 export class ToursComponent implements OnInit {
+
   tours: any[] = [];
 
   constructor(private toursService: ToursService) {}
@@ -43,6 +44,25 @@ export class ToursComponent implements OnInit {
 
     const date = new Date(dateString);
     return date.toLocaleDateString();
+  }
+
+  formatImages(tours: any[]): any[] {
+    return tours.map(tour => {
+      if (tour.photo) {
+        const decodedData = atob(tour.photo);
+        const blobUrl = URL.createObjectURL(new Blob([decodedData], { type: 'image/jpeg' }));
+        tour.photoUrl = blobUrl;
+      }
+      return tour;
+    });
+  }
+
+  getPhotoUrl(base64Data: string): string {
+    if (base64Data) {
+      return 'data:image/jpeg;base64,' + base64Data;
+    } else {
+      return 'path/to/default/photo.jpg';
+    }
   }
 
   deleteTour(tourId: number): void {

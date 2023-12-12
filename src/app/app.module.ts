@@ -7,9 +7,10 @@ import { ToursComponent } from './tours/tours.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToursAddComponent } from './tours-add/tours-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, ToursComponent, ToursAddComponent],
+  declarations: [AppComponent, ToursComponent, ToursAddComponent, HomeComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

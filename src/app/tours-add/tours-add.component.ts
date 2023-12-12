@@ -16,13 +16,14 @@ export class ToursAddComponent implements OnInit {
     end_date: ['', Validators.required],
     people: ['', Validators.required],
     price: ['', Validators.required],
-    photo: [''],
+    photo: [null, Validators.required]
   });
 
   showMessage: boolean = false;
   isError: boolean = false;
   isSuccess: boolean = false;
   message: string = '';
+  continents: string[] = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Australia', 'Antarctica'];
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
@@ -79,6 +80,13 @@ export class ToursAddComponent implements OnInit {
         }
       );
     }
+  }
+
+onFileSelected(event: any) {
+    const file = event.target.files[0];
+    this.tourForm.patchValue({
+      photo: file
+    });
   }
 
   private hideMessage(): void {
