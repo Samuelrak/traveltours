@@ -8,9 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToursAddComponent } from './tours-add/tours-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, ToursComponent, ToursAddComponent, HomeComponent],
+  declarations: [AppComponent, ToursComponent, ToursAddComponent, HomeComponent, NavBarComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
