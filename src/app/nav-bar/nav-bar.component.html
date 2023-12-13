@@ -8,3 +8,13 @@
       <a routerLink="/tours-add">add</a>
     </nav>
 </div>
+<mat-slider
+  [(ngModel)]="sliderValue"
+  thumbLabel
+  (change)="onSliderChange($event)"
+  min="0"
+  max="100"
+  step="1"
+></mat-slider>
+
+<p>Selected value: {{ sliderValue }}</p>
