@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { ToursService } from '../tours.service';
 
 @Component({
   selector: 'app-tours-add',
@@ -25,7 +25,10 @@ export class ToursAddComponent implements OnInit {
   message: string = '';
   continents: string[] = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Australia', 'Antarctica'];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private toursService: ToursService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -41,17 +44,15 @@ export class ToursAddComponent implements OnInit {
       formData.append('price', this.tourForm.get('price')?.value);
       formData.append('photo', this.tourForm.get('photo')?.value);
 
-      this.http.post('http://localhost:5000/add', formData).subscribe(
-        (response) => {
-          console.log('Response from server:', response);
+      this.toursService.addTour(formData).subscribe(
+        (newTour) => {
+          console.log('New tour added:', newTour);
 
-          // Show success message
           this.showMessage = true;
           this.isSuccess = true;
           this.isError = false;
           this.message = 'Tour added successfully!';
 
-          // Hide the message after 2 seconds
           setTimeout(() => {
             this.hideMessage();
           }, 2000);
@@ -61,19 +62,16 @@ export class ToursAddComponent implements OnInit {
         (error) => {
           console.error('Error:', error);
 
-          // Check if there's a specific error message from the server
           const errorMessage =
             error.error && error.error.message
               ? error.error.message
               : 'Failed to add tour. Please try again.';
 
-          // Show error message
           this.showMessage = true;
           this.isSuccess = false;
           this.isError = true;
           this.message = errorMessage;
 
-          // Hide the message after 2 seconds
           setTimeout(() => {
             this.hideMessage();
           }, 2000);
@@ -82,7 +80,7 @@ export class ToursAddComponent implements OnInit {
     }
   }
 
-onFileSelected(event: any) {
+  onFileSelected(event: any) {
     const file = event.target.files[0];
     this.tourForm.patchValue({
       photo: file

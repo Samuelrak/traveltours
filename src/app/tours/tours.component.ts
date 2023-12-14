@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToursService } from '../tours.service';
+import { Tour } from '../entities/tours';
 
 @Component({
   selector: 'app-tours',
@@ -8,7 +9,7 @@ import { ToursService } from '../tours.service';
 })
 export class ToursComponent implements OnInit {
 
-  tours: any[] = [];
+  tours: Tour[] = [];
 
   constructor(private toursService: ToursService) {}
 
@@ -27,7 +28,7 @@ export class ToursComponent implements OnInit {
     );
   }
 
-  private formatDates(tours: any[]): any[] {
+  private formatDates(tours: Tour[]): Tour[] {
     return tours.map((tour) => {
       return {
         ...tour,
@@ -46,17 +47,6 @@ export class ToursComponent implements OnInit {
     return date.toLocaleDateString();
   }
 
-  formatImages(tours: any[]): any[] {
-    return tours.map(tour => {
-      if (tour.photo) {
-        const decodedData = atob(tour.photo);
-        const blobUrl = URL.createObjectURL(new Blob([decodedData], { type: 'image/jpeg' }));
-        tour.photoUrl = blobUrl;
-      }
-      return tour;
-    });
-  }
-
   getPhotoUrl(base64Data: string): string {
     if (base64Data) {
       return 'data:image/jpeg;base64,' + base64Data;
@@ -70,7 +60,6 @@ export class ToursComponent implements OnInit {
       this.toursService.deleteTour(tourId).subscribe(
         (response) => {
           console.log('Tour deleted successfully:', response);
-          // Refresh the list of tours after deletion
           this.fetchTours();
         },
         (error) => {
