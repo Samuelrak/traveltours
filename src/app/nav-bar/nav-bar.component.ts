@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider/slider';
+import { UsersService } from '../services/users.service';
+import { Router } from '@angular/router';
+import { User } from '../entities/user';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,17 +9,24 @@ import { MatSliderChange } from '@angular/material/slider/slider';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
- sliderValue: number = 0; 
- 
-  onSliderChange(event: MatSliderChange) {
-    this.sliderValue = event.value!;
-  }
-
-  constructor() { }
   title = 'travel tours';
-  ngOnInit(): void {
-  }
-  
+  isLoggedIn: boolean = false;
 
+  constructor(public usersService: UsersService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.isLoggedIn = this.usersService.isLogged(); 
+  }
+
+  onLogout() {
+    this.usersService.logout().subscribe(
+      (response: User) => {
+        console.log('Logout successful', response);
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout failed', error);
+      }
+    );
+  }
 }

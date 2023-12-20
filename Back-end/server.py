@@ -1,9 +1,13 @@
 import base64
+import uuid
 
 import mysql.connector
+from anaconda_cloud_auth import jwt
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from datetime import datetime
+
+from psutil import users
 
 app = Flask(__name__)
 CORS(app)
@@ -18,6 +22,8 @@ db_config = {
 db = mysql.connector.connect(**db_config)
 
 cursor = db.cursor(dictionary=True)
+
+active_sessions = {}
 
 @app.route('/view')
 def display_tours():
@@ -89,6 +95,35 @@ def delete_tour(tour_id):
         }
 
         return jsonify(response_data), 500
+
+@app.route('/login', methods=['POST'])
+def user_login():
+  data = request.get_json()
+
+  username = data.get('username')
+  password = data.get('password')
+
+  cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+  user = cursor.fetchone()
+
+  if user and user['password'] == password:
+    session_id = str(uuid.uuid4())
+
+    response_data = {'success': True, 'session_id': session_id, 'message': 'Login successful'}
+    response_data['username'] = username
+    return jsonify(response_data)
+  else:
+    return jsonify({'success': False, 'error': 'Invalid username or password'}), 401
+
+@app.route('/logout', methods=['POST'])
+def user_logout():
+  session_id = request.headers.get('Authorization')
+
+  if session_id in active_sessions:
+    del active_sessions[session_id]
+    return jsonify({'success': True, 'message': 'Logout successful'})
+  else:
+    return jsonify({'success': False, 'error': 'Invalid session ID'}), 401
 
 if __name__ == '__main__':
     app.run(debug=True)

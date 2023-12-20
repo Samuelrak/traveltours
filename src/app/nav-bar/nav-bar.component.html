@@ -1,20 +1,24 @@
 <div>
-    <h1>{{ title }}</h1>
-    <nav>
-      <a routerLink="/tours">Tours list</a>
-      <br>
-      <a routerLink="/">Home</a>
-      <br>
-      <a routerLink="/tours-add">add</a>
-    </nav>
-</div>
-<mat-slider
-  [(ngModel)]="sliderValue"
-  thumbLabel
-  (change)="onSliderChange($event)"
-  min="0"
-  max="100"
-  step="1"
-></mat-slider>
+  <h1>{{ title }}</h1>
+  <nav *ngIf="!usersService.isLogged(); else loggedInNav">
+   
+    <a routerLink="/tours">Tours list</a>
+    <br>
+    <a routerLink="/">Home</a>
+    <br>
+    <a routerLink="/tours-add">Add</a>
+    <br>
+    <a routerLink="/login">Login</a>
 
-<p>Selected value: {{ sliderValue }}</p>
+  </nav>
+  <ng-template #loggedInNav>
+  
+    <a routerLink="/tours">Tours list</a>
+    <br>
+    <a routerLink="/">Home</a>
+    <br>
+    <a routerLink="/tours-add">Add</a>
+    <br>
+    <li><a (click)="onLogout()">Logout</a></li>
+  </ng-template>
+</div>
