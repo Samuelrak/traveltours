@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToursService } from '../tours.service';
 import { Tour } from '../entities/tours';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-tours',
@@ -8,8 +9,8 @@ import { Tour } from '../entities/tours';
   styleUrls: ['./tours.component.css'],
 })
 export class ToursComponent implements OnInit {
-
   tours: Tour[] = [];
+  editedTour: Tour | null = null;
 
   constructor(private toursService: ToursService) {}
 
@@ -67,5 +68,50 @@ export class ToursComponent implements OnInit {
         }
       );
     }
+  }
+
+  editTour(tour: Tour): void {
+    // Set editedTour to the selected tour for editing
+    this.editedTour = { ...tour };
+  }
+
+  saveTour() {
+    console.log('Saving tour:', this.editedTour);
+
+    // Convert the editedTour data to FormData
+    const formData = new FormData();
+    if (this.editedTour) {
+      for (const [key, value] of Object.entries(this.editedTour)) {
+        if (value !== null && value !== undefined) {
+          if (key.includes('_date')) {
+            // Format date values
+            formData.append(key, format(new Date(value), 'yyyy-MM-dd'));
+          } else if (typeof value === 'object' && !(value instanceof File)) {
+            // If the value is an object (not a File), stringify it
+            formData.append(key, JSON.stringify(value));
+          } else {
+            formData.append(key, value.toString());
+          }
+        }
+      }
+    }
+
+    console.log('Data being sent to the backend:', formData);
+
+    this.toursService.updateTour(this.editedTour?.id || 0, formData).subscribe(
+      (response) => {
+        console.log('Tour updated successfully:', response);
+        this.fetchTours();
+        this.cancelEdit();
+      },
+      (error) => {
+        console.error('Error updating tour:', error);
+      }
+    );
+  }
+
+  // Cancel editing and exit edit mode
+  cancelEdit(): void {
+    this.editedTour = null;
   }
 }

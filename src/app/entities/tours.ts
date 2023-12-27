@@ -6,8 +6,8 @@ export class Tour {
     public continent: string,
     public start_date: string,
     public end_date: string,
-    public people: number,
-    public price: number,
-    public photo: string
+    public photo: string,
+    public people?: number,
+    public price?: number
   ) {}
 }
