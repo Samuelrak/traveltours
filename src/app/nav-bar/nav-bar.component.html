@@ -1,20 +1,14 @@
 <div>
-    <h1>{{ title }}</h1>
-    <nav>
-      <a routerLink="/tours">Tours list</a>
-      <br>
-      <a routerLink="/">Home</a>
-      <br>
-      <a routerLink="/tours-add">add</a>
-    </nav>
-</div>
-<mat-slider
-  [(ngModel)]="sliderValue"
-  thumbLabel
-  (change)="onSliderChange($event)"
-  min="0"
-  max="100"
-  step="1"
-></mat-slider>
+  <h1>{{ title }}</h1>
+  
+  <a routerLink="/tours">Tours list</a>
+  <br>
+  <a routerLink="/">Home</a>
+  <br>
+  <a routerLink="/tours-add">Add</a>
+  <br>
+  
 
-<p>Selected value: {{ sliderValue }}</p>
+  <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+  <a *ngIf="isLoggedIn" routerLink="/logout">Logout</a>
+</div>
