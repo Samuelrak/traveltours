@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { User } from '../entities/user';
 
 @Injectable({
@@ -10,30 +11,22 @@ export class UsersService {
   private apiUrl = 'http://127.0.0.1:5000';
 
   constructor(private http: HttpClient) {}
-  isLoggedIn: boolean = false;
-  
-  login(user: User): Observable<User>  {
-    this.isLoggedIn = true;
-    console.log('Login successful. isLoggedIn:', this.isLoggedIn);
-    return this.http.post<User>(`${this.apiUrl}/login`, user);
+
+  login(user: User): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/login`, user).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Login error:', error.message);
+        return throwError(() => new Error('Login failed with status: ' + error.status));
+      })
+    );
   }
 
-  logout(): Observable<User>  {
-    this.isLoggedIn = false;
-    return this.http.post<User>(`${this.apiUrl}/logout`, {});
-   
+  logout(username: string,): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/logout`, { username }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Logout error:', error.message);
+        return throwError(() => new Error('Logout failed with status: ' + error.status));
+      })
+    );
   }
-
-  isLogged(): boolean {
-    return this.isLoggedIn;
-  }
-  
-  
 }
-
-
-
-
-
-
-

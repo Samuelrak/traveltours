@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth-service.service';
 import { User } from '../entities/user';
 
 @Component({
@@ -12,21 +13,14 @@ export class NavBarComponent implements OnInit {
   title = 'travel tours';
   isLoggedIn: boolean = false;
 
-  constructor(public usersService: UsersService, private router: Router) {}
+  constructor(public usersService: UsersService, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this.usersService.isLogged(); 
+    this.isLoggedIn = this.authService.hasToken();
+    this.authService.loggedInStatusChange.subscribe((value) => {
+      this.isLoggedIn = value;
+    });  
   }
-
-  onLogout() {
-    this.usersService.logout().subscribe(
-      (response: User) => {
-        console.log('Logout successful', response);
-        this.router.navigate(['/login']);
-      },
-      (error) => {
-        console.error('Logout failed', error);
-      }
-    );
-  }
+  
+ 
 }

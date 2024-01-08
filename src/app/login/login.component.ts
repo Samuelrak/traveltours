@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
 import { User } from '../entities/user';
+import { AuthService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -11,32 +12,37 @@ import { User } from '../entities/user';
 export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
+  errorMessage: string = '';
 
-  constructor(private usersService: UsersService, private router: Router) {}
+  constructor(
+    private usersService: UsersService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
   onLogin() {
-    this.usersService.login({ username: this.username, password: this.password }).subscribe(
+    const userWithToken: User = {
+      username: this.username,
+      password: this.password,
+      token: '',
+    };
+    this.usersService.login(userWithToken).subscribe(
       (response: User) => {
-        console.log('Login successful', response);
+
+        this.authService.saveToken(response.token);
+        this.authService.saveUsername(response.username);
+  
+        this.authService.setIsLoggedIn(true);
+  
         this.router.navigate(['']);
       },
       (error) => {
         console.error('Login failed', error);
+        this.errorMessage = 'Login failed. Please check your credentials.';
       }
     );
   }
-
-  onLogout() {
-    this.usersService.logout().subscribe(
-      (response: User) => {
-        console.log('Logout successful', response);
-        this.router.navigate(['/login']);
-      },
-      (error) => {
-        console.error('Logout failed', error);
-      }
-    );
-  }
+  
 }
