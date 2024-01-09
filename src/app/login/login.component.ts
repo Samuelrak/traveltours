@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  isadmin: boolean = false;
 
   constructor(
     private usersService: UsersService,
@@ -27,15 +28,15 @@ export class LoginComponent implements OnInit {
       username: this.username,
       password: this.password,
       token: '',
+      isadmin: this.isadmin
     };
+  
     this.usersService.login(userWithToken).subscribe(
       (response: User) => {
-
         this.authService.saveToken(response.token);
         this.authService.saveUsername(response.username);
-  
+        this.authService.setIsAdmin(response.isadmin);
         this.authService.setIsLoggedIn(true);
-  
         this.router.navigate(['']);
       },
       (error) => {

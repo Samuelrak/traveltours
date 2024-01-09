@@ -63,7 +63,6 @@ def add_tour():
     response_data = {
       'status': 'success'
     }
-
     return jsonify(response_data), 200
 
   except Exception as e:
@@ -72,7 +71,6 @@ def add_tour():
       'status': 'error',
       'message': error_message
     }
-
     return jsonify(response_data), 500
 
 @app.route('/delete/<int:tour_id>', methods=['DELETE'])
@@ -84,7 +82,6 @@ def delete_tour(tour_id):
     response_data = {
       'status': 'success'
     }
-
     return jsonify(response_data), 200
 
   except Exception as e:
@@ -93,7 +90,6 @@ def delete_tour(tour_id):
       'status': 'error',
       'message': error_message
     }
-
     return jsonify(response_data), 500
 
 @app.route('/login', methods=['POST'])
@@ -108,26 +104,30 @@ def user_login():
     user = cursor.fetchone()
 
     if user and user['password'] == password:
-      payload = {'username': username}
 
+      is_admin = user['isadmin'] == 1
+      app.logger.debug(is_admin)
+      payload = {'username': username, 'isadmin': is_admin}
       token = jwt.encode(payload, secret_key, algorithm='HS256')
-
       session_id = str(uuid.uuid4())
 
-      response_data = {'success': True, 'session_id': session_id, 'token': token, 'message': 'Login successful'}
-      response_data['username'] = username
-
+      response_data = {
+        'success': True,
+        'session_id': session_id,
+        'token': token,
+        'message': 'Login successful',
+        'username': username,
+        'isadmin': is_admin
+      }
       return jsonify(response_data)
     else:
       return jsonify({'success': False, 'error': 'Invalid username or password'}), 401
   except Exception as e:
-    app.logger.error("An error occurred while querying the database: %s", str(e))
     return jsonify({'success': False, 'error': 'An error occurred while processing your request'}), 500
 @app.route('/logout', methods=['POST'])
 def logout():
   data = request.get_json()
   username = data.get('username')
-  app.logger.debug(data)
   try:
     cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
     user = cursor.fetchone()

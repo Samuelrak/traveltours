@@ -19,18 +19,20 @@ export class LogoutComponent implements OnInit {
   logout() {
     const token = this.authService.getToken();
     const username = this.authService.getUsername();
+    const isadmin = this.authService.getIsAdmin();
   
     if (!token || !username) {
-      console.error('Token or username not found.');
+      console.error('Token or username or isadmin not found.');
       return;
     }
   
-    this.usersService.logout(username).subscribe(
+    this.usersService.logout(username, token, isadmin).subscribe(
       () => {
         console.log('Logout successful');
         this.authService.clearStorage();
         this.router.navigate(['/']);
         this.authService.setIsLoggedIn(false);
+        this.authService.clearAdminStatus();
       },
       (error) => {
         console.error('Logout error:', error);
