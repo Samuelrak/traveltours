@@ -12,6 +12,6 @@
     <p>End Date: {{ tour.end_date }}</p>
     <p>People: {{ tour.people }}</p>
     <p>Price: {{ tour.price }} €</p>
-    <button (click)="deleteTour(tour.id)">Delete Tour</button>
+    <button (click)="deleteTour(tour.id)" *ngIf="isAdmin">Delete Tour</button>
     <br>
   </div>

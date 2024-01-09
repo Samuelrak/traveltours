@@ -8,6 +8,7 @@ import { User } from '../entities/user';
   providedIn: 'root',
 })
 export class UsersService {
+
   private apiUrl = 'http://127.0.0.1:5000';
 
   constructor(private http: HttpClient) {}
@@ -21,8 +22,8 @@ export class UsersService {
     );
   }
 
-  logout(username: string,): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/logout`, { username }).pipe(
+  logout(username: string, token: string, isadmin: boolean): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/logout`, { username, token, isadmin}).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error('Logout error:', error.message);
         return throwError(() => new Error('Logout failed with status: ' + error.status));

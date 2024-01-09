@@ -1,13 +1,16 @@
 <div>
   <h1>{{ title }}</h1>
+
+  <p *ngIf="isLoggedIn && loggedUsername">{{ 'Logged in as: ' + loggedUsername }}</p>
+
   
   <a routerLink="/tours">Tours list</a>
   <br>
   <a routerLink="/">Home</a>
   <br>
-  <a routerLink="/tours-add">Add</a>
+  <a *ngIf="isAdmin" routerLink="/tours-add">Add</a>
   <br>
-  
+
 
   <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
   <a *ngIf="isLoggedIn" routerLink="/logout">Logout</a>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToursService } from '../services/tours.service';
 import { Tour } from '../entities/tours';
+import { AuthService } from '../services/auth-service.service';
+import { User } from '../entities/user';
 
 @Component({
   selector: 'app-tours',
@@ -10,10 +12,12 @@ import { Tour } from '../entities/tours';
 export class ToursComponent implements OnInit {
 
   tours: Tour[] = [];
+  isAdmin = false;
 
-  constructor(private toursService: ToursService) {}
+  constructor(private toursService: ToursService, private authService: AuthService ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.getIsAdmin();
     this.fetchTours();
   }
 

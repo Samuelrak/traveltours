@@ -7,11 +7,24 @@ import { Subject } from 'rxjs';
   export class AuthService {
     private tokenKey = 'token';
     private usernameKey = 'username';
+    private isadminKey = 'isadmin';
     public isLoggedIn = false;
     public loggedInStatusChange = new Subject<boolean>();
 
     constructor() {}
 
+    setIsAdmin(isAdmin: boolean) {
+      localStorage.setItem(this.isadminKey, isAdmin.toString()); 
+    }
+  
+    getIsAdmin(): boolean {
+      const isAdminStr = localStorage.getItem(this.isadminKey);
+      return isAdminStr === 'true'; 
+    }  
+    clearAdminStatus(): void {
+      localStorage.removeItem(this.isadminKey);
+    }
+    
     saveToken(token: string): void {
       localStorage.setItem(this.tokenKey, token);
     }

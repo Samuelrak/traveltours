@@ -12,15 +12,28 @@ import { User } from '../entities/user';
 export class NavBarComponent implements OnInit {
   title = 'travel tours';
   isLoggedIn: boolean = false;
+  loggedUsername: string | null = null;
+  isAdmin: boolean = false;
 
   constructor(public usersService: UsersService, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.hasToken();
+    this.loggedUsername = this.authService.getUsername();
+
+    if (this.isLoggedIn) {
+      this.isAdmin = this.authService.getIsAdmin();
+    }
+
     this.authService.loggedInStatusChange.subscribe((value) => {
       this.isLoggedIn = value;
-    });  
+      this.loggedUsername = this.authService.getUsername();
+
+      if (this.isLoggedIn) {
+        this.isAdmin = this.authService.getIsAdmin();
+      } else {
+        this.isAdmin = false;
+      }
+    });
   }
-  
- 
 }
