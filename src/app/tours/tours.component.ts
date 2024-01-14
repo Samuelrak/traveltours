@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToursService } from '../services/tours.service';
 import { Tour } from '../entities/tours';
-import { AuthService } from '../services/auth-service.service';
+import { AuthService } from '../services/auth.service';
 import { User } from '../entities/user';
 
 @Component({

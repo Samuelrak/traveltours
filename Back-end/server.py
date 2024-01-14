@@ -25,7 +25,7 @@ active_sessions = {}
 secret_key = 'your_secret_key'
 @app.route('/view',  methods=['GET'])
 def display_tours():
-  cursor.execute('SELECT name, location, continent,start_date, end_date, people, price, photo FROM tours')
+  cursor.execute('SELECT id, name, location, continent,start_date, end_date, people, price, photo FROM tours')
   tours = cursor.fetchall()
 
   for tour in tours:
