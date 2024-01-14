@@ -3,7 +3,6 @@
 
   <p *ngIf="isLoggedIn && loggedUsername">{{ 'Logged in as: ' + loggedUsername }}</p>
 
-  
   <a routerLink="/tours">Tours list</a>
   <br>
   <a routerLink="/">Home</a>
@@ -11,7 +10,16 @@
   <a *ngIf="isAdmin" routerLink="/tours-add">Add</a>
   <br>
 
-
   <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
-  <a *ngIf="isLoggedIn" routerLink="/logout">Logout</a>
+  <a *ngIf="isLoggedIn" (click)="onLogout()" routerLink="/">Logout</a> 
+
+<div *ngIf="loginSuccessMessage" class="success-message">
+  {{ loginSuccessMessage }}
+</div>
+
+<!-- <div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div> -->
+
+<div *ngIf="logoutMessage" class="logout-message">{{ logoutMessage }}</div>
 </div>
