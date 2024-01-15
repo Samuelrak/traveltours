@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToursService } from '../tours.service';
+import { ToursService } from '../services/tours.service';
 import { Tour } from '../entities/tours';
 import { format } from 'date-fns';
+import { AuthService } from '../services/auth.service';
+import { User } from '../entities/user';
 
 @Component({
   selector: 'app-tours',
@@ -10,11 +12,16 @@ import { format } from 'date-fns';
 })
 export class ToursComponent implements OnInit {
   tours: Tour[] = [];
+  isAdmin = false;
   editedTour: Tour | null = null;
 
-  constructor(private toursService: ToursService) {}
+  constructor(
+    private toursService: ToursService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.getIsAdmin();
     this.fetchTours();
   }
 

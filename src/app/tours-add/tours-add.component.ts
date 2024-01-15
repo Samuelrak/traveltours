@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToursService } from '../tours.service';
+import { ToursService } from '../services/tours.service';
 
 @Component({
   selector: 'app-tours-add',
