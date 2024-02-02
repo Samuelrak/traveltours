@@ -1,25 +1,20 @@
-<div>
-  <h1>{{ title }}</h1>
-
+<div class="navbar">
   <p *ngIf="isLoggedIn && loggedUsername">{{ 'Logged in as: ' + loggedUsername }}</p>
 
-  <a routerLink="/tours">Tours list</a>
-  <br>
-  <a routerLink="/">Home</a>
-  <br>
-  <a *ngIf="isAdmin" routerLink="/tours-add">Add</a>
-  <br>
+  <div class="nav-links-left">
+    <a routerLink="/">Home</a>
+    <a routerLink="/tours">All tours</a>
+    <a *ngIf="isAdmin" routerLink="/tours-add">Add</a>
+  </div>
 
-  <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
-  <a *ngIf="isLoggedIn" (click)="onLogout()" routerLink="/">Logout</a> 
+  <div class="nav-links-right">
+    <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+    <a *ngIf="isLoggedIn" (click)="onLogout()" routerLink="/">Logout</a>
+  </div>
 
-<div *ngIf="loginSuccessMessage" class="success-message">
-  {{ loginSuccessMessage }}
-</div>
+  <div *ngIf="loginSuccessMessage" class="success-message">
+    {{ loginSuccessMessage }}
+  </div>
 
-<!-- <div *ngIf="errorMessage" class="error-message">
-  {{ errorMessage }}
-</div> -->
-
-<div *ngIf="logoutMessage" class="logout-message">{{ logoutMessage }}</div>
+  <div *ngIf="logoutMessage" class="logout-message">{{ logoutMessage }}</div>
 </div>

@@ -1,3 +1,19 @@
-.underline {
-    text-decoration: underline;
-  }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  font-size: large;
+}
+
+.nav-links-left a,
+.nav-links-right a {
+  text-decoration: none;
+  margin-right: 10px; /* Adjust the margin between links if needed */
+}
+
+/* Optionally, add additional styles such as color, hover effects, etc. */
+.nav-links-left a:hover,
+.nav-links-right a:hover {
+  color: #007bff; /* Change color on hover if desired */
+}
