@@ -32,7 +32,6 @@ def display_tours():
     if 'photo' in tour and tour['photo'] is not None:
       tour['photo'] = base64.b64encode(tour['photo']).decode('utf-8')
 
-  app.logger.debug(tours)
 
   return jsonify(tours)
 @app.route('/add', methods=['POST'])
@@ -98,6 +97,7 @@ def user_login():
 
   username = data.get('username')
   password = data.get('password')
+  app.logger.debug("Backend username", username)
 
   try:
     cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
@@ -157,7 +157,7 @@ def update_tour(tour_id):
         price = float(request.form['price'])
         photo = request.files['photo'] if 'photo' in request.files else None
 
-        print(f"Received data: {name}, {location}, {continent}, {start_date_str}, {end_date_str}, {people}, {price}")
+        print(f"Received data: {name}, {location}, {continent}, {start_date_str}, {end_date_str}, {people}, {price}, {photo}")
 
         start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
         end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
