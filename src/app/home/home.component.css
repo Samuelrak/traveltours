@@ -50,8 +50,8 @@ header {
 .background2,
 .foreground2 {
   position: absolute;
-  height: 100%;
-  width: 110%;
+  height: 110%;
+  width: 100%;
   object-fit: cover;
   z-index: -2;
 }
@@ -72,12 +72,12 @@ section {
   padding-top: 6rem;
   
 }
-.main {
+main {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 110%;
   transform-style: preserve-3d;
   z-index: -1;
 }
@@ -94,7 +94,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
- background-image: linear-gradient(to left, #253d80 , #151F28);
+ background-image: linear-gradient(to left, #1b5a33 , #151F28);
     color: white;
     text-align: left;
     padding: 10px;
