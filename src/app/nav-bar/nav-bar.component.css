@@ -4,12 +4,15 @@
   align-items: center;
   padding: 30px;
   font-size: large;
+  font-weight: 400;
+  background-image: linear-gradient(to left, #253d80 , #151F28);
 }
 
 .nav-links-left a,
 .nav-links-right a {
   text-decoration: none;
-  margin-right: 10px; /* Adjust the margin between links if needed */
+  margin-right: 40px;
+  color: white
 }
 
 /* Optionally, add additional styles such as color, hover effects, etc. */
