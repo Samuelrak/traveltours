@@ -52,7 +52,8 @@ export class ToursComponent implements OnInit {
     }
 
     const date = new Date(dateString);
-    return date.toLocaleDateString();
+    const formattedDate = format(date, 'yyyy-MM-dd'); // Format consistently
+    return formattedDate;
   }
 
   getPhotoUrl(base64Data: string): string {
@@ -90,9 +91,13 @@ export class ToursComponent implements OnInit {
     if (this.editedTour) {
       for (const [key, value] of Object.entries(this.editedTour)) {
         if (value !== null && value !== undefined) {
-          if (key.includes('_date')) {
-            // Format date values
-            formData.append(key, format(new Date(value), 'yyyy-MM-dd'));
+          if (key.includes('_date') && value instanceof Date) {
+            // Format date values only if value is a Date object
+            const formattedDate = format(value, 'yyyy-MM-dd');
+            formData.append(key, formattedDate);
+          } else if (key === 'photo' && value instanceof File) {
+            // Handle photo file separately
+            formData.append('photo', value);
           } else if (typeof value === 'object' && !(value instanceof File)) {
             // If the value is an object (not a File), stringify it
             formData.append(key, JSON.stringify(value));
@@ -102,7 +107,6 @@ export class ToursComponent implements OnInit {
         }
       }
     }
-
     console.log('Data being sent to the backend:', formData);
 
     this.toursService.updateTour(this.editedTour?.id || 0, formData).subscribe(
@@ -120,5 +124,13 @@ export class ToursComponent implements OnInit {
   // Cancel editing and exit edit mode
   cancelEdit(): void {
     this.editedTour = null;
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+
+    if (this.editedTour) {
+      this.editedTour.photo = file;
+    }
   }
 }

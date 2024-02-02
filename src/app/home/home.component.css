@@ -1,0 +1,102 @@
+:host {
+  display: block;
+  margin: 0;
+}
+
+.wrapper {
+  height: 100vh;
+  overflow-y: auto; /* Keep scrollbar for the .wrapper */
+  overflow-x: hidden;
+  perspective: 10px;
+  position: fixed; /* Fixed position to cover the entire viewport */
+  width: 100%;
+}
+
+header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transform-style: preserve-3d;
+  z-index: -1;
+}
+
+.background {
+  transform: translateZ(-10px) scale(2);
+}
+
+.foreground {
+  transform: translateZ(-5px) scale(1.5);
+}
+
+.background,
+.foreground {
+  position: absolute;
+  height: 100%;
+  width: 110%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.background2 {
+  transform: translateZ(-10px) scale(2);
+}
+
+.foreground2 {
+  transform: translateZ(-5px) scale(1.5);
+}
+
+.background2,
+.foreground2 {
+  position: absolute;
+  height: 110%;
+  width: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.title {
+  font-size: 7rem;
+  color: white;
+  text-shadow: 0 0 5px black;
+}
+
+section {
+  font-size: 2rem;
+  /* padding: 2rem; */
+  background-color: #333;
+  color: white;
+  height: 300px;
+  text-align: center;
+  padding-top: 6rem;
+  
+}
+main {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 110%;
+  transform-style: preserve-3d;
+  z-index: -1;
+}
+
+.title2 {
+  font-size: 7rem;
+  color: white;
+  text-shadow: 0 0 5px black;
+  text-align: center;
+  padding-top: 370px;
+}
+footer {
+  max-height: 30px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+ background-image: linear-gradient(to left, #1b5a33 , #151F28);
+    color: white;
+    text-align: left;
+    padding: 10px;
+
+}
