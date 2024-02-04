@@ -136,8 +136,10 @@ export class ToursComponent implements OnInit {
     }
   }
 
+
   navigateToDetail(tourId: number): void {
     this.router.navigate(['/tour-detail', tourId]);
+
   }
 
 }

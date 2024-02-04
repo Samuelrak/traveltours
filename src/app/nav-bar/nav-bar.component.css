@@ -5,18 +5,35 @@
   padding: 30px;
   font-size: large;
   font-weight: 400;
-  background-image: linear-gradient(to left, #253d80 , #151F28);
+  background-image: linear-gradient(to left, #253d80, #151F28);
 }
 
-.nav-links-left a,
-.nav-links-right a {
+.nav-links {
+  display: flex;
+}
+
+.nav-links a {
   text-decoration: none;
-  margin-right: 40px;
-  color: white
+  color: white;
+  margin-right: 20px;
 }
 
-/* Optionally, add additional styles such as color, hover effects, etc. */
-.nav-links-left a:hover,
-.nav-links-right a:hover {
-  color: #007bff; /* Change color on hover if desired */
+.nav-links a:last-child {
+  margin-right: 0;
+}
+
+.nav-links a:hover {
+  color: #007bff;
+}
+
+.welcome-message {
+color: white
+}
+
+.success-message {
+color: white
+}
+
+.logout-message {
+color: white
 }

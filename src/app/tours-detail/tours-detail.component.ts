@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
 import { ToursService } from '../services/tours.service'; 
 import { Tour } from '../entities/tours';
+
 
 @Component({
   selector: 'app-tours-detail',
@@ -9,6 +11,7 @@ import { Tour } from '../entities/tours';
   styleUrls: ['./tours-detail.component.css']
 })
 export class ToursDetailComponent implements OnInit {
+
   tourId!: number; 
   tour: Tour | null = null; 
 
@@ -39,4 +42,5 @@ export class ToursDetailComponent implements OnInit {
       }
     );
   }
+
 }

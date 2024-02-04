@@ -18,8 +18,22 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ToursDetailComponent } from './tours-detail/tours-detail.component';
 import { MessageComponent } from './message/message.component';
+import { MatCardModule } from '@angular/material/card';
+
+
+
 @NgModule({
-  declarations: [AppComponent, ToursComponent, ToursAddComponent, HomeComponent, NavBarComponent, LoginComponent, ToursDetailComponent, MessageComponent],
+  declarations: [
+    AppComponent,
+    ToursComponent,
+    ToursAddComponent,
+    HomeComponent,
+    NavBarComponent,
+    LoginComponent,
+    ToursDetailComponent,
+    MessageComponent
+  ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -31,7 +45,8 @@ import { MessageComponent } from './message/message.component';
     MatSliderModule,
     FormsModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

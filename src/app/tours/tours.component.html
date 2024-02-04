@@ -1,8 +1,7 @@
-<h2>Tours:</h2>
 <div *ngFor="let tour of tours" class="tour-box">
   <div class="tour-info">
     <span class="tour-photo">
-      <img [src]="getPhotoUrl(tour.photo)" alt="Tour Photo" [style.max-width.px]="300" [style.max-height.px]="126">
+      <img [src]="getPhotoUrl(tour.photo)" alt="Tour Photo" [style.max-width.px]="390" [style.max-height.px]="186">
     </span>
     <br>
     <p>Name: {{ tour.name }}</p>
@@ -12,13 +11,15 @@
     <p>End Date: {{ tour.end_date }}</p>
     <p>People: {{ tour.people }}</p>
     <p>Price: {{ tour.price }} €</p>
-    <button (click)="navigateToDetail(tour.id)" *ngIf="!isAdmin">Pay</button>
-    <button (click)="deleteTour(tour.id)" *ngIf="isAdmin">Delete Tour</button>
-    <button (click)="editTour(tour)" *ngIf="isAdmin">Update Tour</button>
+
+    <button (click)="navigateToDetail()" *ngIf="!isAdmin">Pay</button>
+    <button (click)="deleteTour(tour.id)" class="delete" *ngIf="isAdmin">Delete Tour</button>
+    <button (click)="editTour(tour)" class="update" *ngIf="isAdmin">Update Tour</button>
     <br>
   </div>
 
-  <form *ngIf="editedTour && editedTour.id === tour.id" (submit)="saveTour()">
+  <form *ngIf="editedTour && editedTour.id === tour.id" (submit)="saveTour()" class="edit-form">
+
     <label>Name:</label>
     <input [(ngModel)]="editedTour.name" name="name" required>
     <label>Location:</label>
@@ -36,6 +37,6 @@
     <label>Photo:</label>
     <input [(ngModel)]="editedTour.photo" name="photo" type="file" id="photo" (change)="onFileSelected($event)">
     <button type="submit">Save</button>
-    <button type="button" (click)="cancelEdit()">Cancel</button>
+    <button type="button" (click)="cancelEdit()" class="cancel">Cancel</button>
   </form>
 </div>
