@@ -9,16 +9,13 @@
     <p *ngIf="isLoggedIn && loggedUsername" class="welcome-message">{{ 'Welcome ' + loggedUsername + "!"}}</p>
 
   </div>
+    <app-message></app-message>
   <div class="nav-links">
     <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
     <a *ngIf="isLoggedIn" (click)="onLogout()" routerLink="/">Logout</a>
   </div>
 
-  <div *ngIf="loginSuccessMessage" class="success-message">
-    {{ loginSuccessMessage }}
-  </div>
 
-  <div *ngIf="logoutMessage" class="logout-message">{{ logoutMessage }}</div>
 
 </div>
 
