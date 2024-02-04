@@ -18,6 +18,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ToursDetailComponent } from './tours-detail/tours-detail.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MatCardModule } from '@angular/material/card';
     MatOptionModule,
     MatSelectModule,
     MatCardModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
