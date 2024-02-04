@@ -135,9 +135,9 @@ export class ToursComponent implements OnInit {
       this.editedTour.photo = file;
     }
   }
+  navigateToDetail(tourId: number): void {
+    this.router.navigate(['/tour-detail', tourId]);
 
-  navigateToDetail(): void {
-    this.router.navigate(['/tour-detail']);
   }
 
 }

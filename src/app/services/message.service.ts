@@ -15,26 +15,42 @@ export class MessageService {
   public logoutMessage$ = this.logoutMessageSubject.asObservable();
 
   constructor() { }
+  
   setIsLoggedIn(value: boolean): void {
     this.isLoggedIn = value;
     this.loggedInStatusChange.next(value);
   }
+  
   setLoginSuccessMessage(message: string) {
     this.loginSuccessMessageSubject.next(message);
+    this.clearMessageAfterDelay(this.loginSuccessMessageSubject);
   }
+  
   setLoginErrorMessage(message: string) {
     this.loginErrorMessageSubject.next(message); 
+    this.clearMessageAfterDelay(this.loginErrorMessageSubject);
   }
+  
   clearLoginSuccessMessage():void {
     this.loginSuccessMessageSubject.next('');
   }
+  
   clearLoginErrorMessage():void {
     this.loginErrorMessageSubject.next('');
   }
+  
   setLogoutMessage(message: string) {
     this.logoutMessageSubject.next(message);
+    this.clearMessageAfterDelay(this.logoutMessageSubject);
   }
+  
   clearLogoutMessage() {
     this.logoutMessageSubject.next('');
+  }
+  
+  private clearMessageAfterDelay(subject: Subject<string>): void {
+    setTimeout(() => {
+      subject.next('');
+    }, 1000);
   }
 }

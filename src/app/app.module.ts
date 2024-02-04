@@ -17,7 +17,10 @@ import { LoginComponent } from './login/login.component';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ToursDetailComponent } from './tours-detail/tours-detail.component';
+import { MessageComponent } from './message/message.component';
 import { MatCardModule } from '@angular/material/card';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @NgModule({
@@ -29,7 +32,10 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
     NavBarComponent,
     LoginComponent,
     ToursDetailComponent,
+    MessageComponent,
+    PageNotFoundComponent,
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,

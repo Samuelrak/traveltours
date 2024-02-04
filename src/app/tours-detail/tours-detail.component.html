@@ -1,1 +1,11 @@
-<p>tours-detail works!</p>
+<div *ngIf="tour">
+  <h2>Tour Details</h2>
+  <img [src]="getPhotoUrl(tour.photo)" alt="Tour Photo" [style.max-width.px]="390" [style.max-height.px]="186">
+  <p><strong>Tour Name:</strong> {{ tour.name }}</p>
+  <p><strong>Location:</strong> {{ tour.location }}</p>
+  <p><strong>Start Date:</strong> {{ tour.start_date }}</p>
+  <p><strong>End Date:</strong> {{ tour.end_date }}</p>
+  <img src="assets/call-us.png" alt="Call Us" [style.max-width.px]="390" [style.max-height.px]="186">
+
+  
+</div>

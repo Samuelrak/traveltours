@@ -18,56 +18,41 @@ export class NavBarComponent implements OnInit {
   loginSuccessMessage: string | null = null;
   errorMessage: string = '';
 
-
-  constructor(public usersService: UsersService, private router: Router, private authService: AuthService, private messageService: MessageService) {}
+  constructor(
+    public usersService: UsersService,
+    private router: Router,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.hasToken();
+
+    // Check if user information exists in local storage
+    const storedUsername = localStorage.getItem('loggedInUsername');
+    if (storedUsername) {
+      this.loggedUsername = storedUsername;
+    }
 
     if (this.isLoggedIn) {
       this.isAdmin = this.authService.getIsAdmin();
     }
 
-    this.messageService.loginSuccessMessage$.subscribe((message) => {
-      this.loginSuccessMessage = message;
-      if (message) {
-        setTimeout(() => {
-          this.messageService.clearLoginSuccessMessage();
-        }, 1000);
-      }
-    });
-
     this.messageService.loggedInStatusChange.subscribe((value) => {
       this.isLoggedIn = value;
       this.loggedUsername = this.authService.getUsername();
+      // Store logged-in user information in local storage
       if (this.isLoggedIn) {
+        localStorage.setItem('loggedInUsername', this.loggedUsername || '');
         this.isAdmin = this.authService.getIsAdmin();
       } else {
+        localStorage.removeItem('loggedInUsername');
         this.isAdmin = false;
       }
     });
-
-    this.messageService.logoutMessage$.subscribe((message) => {
-      this.logoutMessage = message;
-      if (message) {
-        setTimeout(() => {
-          this.messageService.clearLogoutMessage();
-        }, 1000);
-      }
-    });
-
-    // this.authService.loginErrorMessageSubject$.subscribe((message) => {
-    //   this.errorMessage = message;
-    //   if (message) {
-    //     setTimeout(() => {
-    //       this.authService.clearLoginErrorMessage();
-    //     }, 1000);
-    //   }
-    // });
   }
 
   onLogout() {
-    this.usersService.onLogout(); 
+    this.usersService.onLogout();
   }
 }
- 
