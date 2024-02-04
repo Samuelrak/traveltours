@@ -1,3 +1,22 @@
-.underline {
-    text-decoration: underline;
-  }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  font-size: large;
+  font-weight: 400;
+  background-image: linear-gradient(to left, #253d80 , #151F28);
+}
+
+.nav-links-left a,
+.nav-links-right a {
+  text-decoration: none;
+  margin-right: 40px;
+  color: white
+}
+
+/* Optionally, add additional styles such as color, hover effects, etc. */
+.nav-links-left a:hover,
+.nav-links-right a:hover {
+  color: #007bff; /* Change color on hover if desired */
+}

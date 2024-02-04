@@ -12,6 +12,30 @@
     <p>End Date: {{ tour.end_date }}</p>
     <p>People: {{ tour.people }}</p>
     <p>Price: {{ tour.price }} €</p>
+    <button (click)="navigateToDetail(tour.id)" *ngIf="!isAdmin">Pay</button>
     <button (click)="deleteTour(tour.id)" *ngIf="isAdmin">Delete Tour</button>
+    <button (click)="editTour(tour)" *ngIf="isAdmin">Update Tour</button>
     <br>
   </div>
+
+  <form *ngIf="editedTour && editedTour.id === tour.id" (submit)="saveTour()">
+    <label>Name:</label>
+    <input [(ngModel)]="editedTour.name" name="name" required>
+    <label>Location:</label>
+    <input [(ngModel)]="editedTour.location" name="location" required>
+    <label>Continent:</label>
+    <input [(ngModel)]="editedTour.continent" name="continent" required>
+    <label>Start Date:</label>
+    <input [(ngModel)]="editedTour.start_date" name="start_date" required>
+    <label>End Date:</label>
+    <input [(ngModel)]="editedTour.end_date" name="end_date" required>
+    <label>People:</label>
+    <input [(ngModel)]="editedTour.people" name="people" type="number" required>
+    <label>Price:</label>
+    <input [(ngModel)]="editedTour.price" name="price" type="number" required>
+    <label>Photo:</label>
+    <input [(ngModel)]="editedTour.photo" name="photo" type="file" id="photo" (change)="onFileSelected($event)">
+    <button type="submit">Save</button>
+    <button type="button" (click)="cancelEdit()">Cancel</button>
+  </form>
+</div>

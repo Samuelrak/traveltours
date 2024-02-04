@@ -9,6 +9,5 @@
 </mat-form-field>
 
 <button mat-raised-button color="primary" (click)="onLogin()">Login</button>
-<div *ngIf="errorMessage" class="error-message">
-  {{ errorMessage }}
-</div>
+<app-message></app-message>
+
