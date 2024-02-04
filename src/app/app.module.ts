@@ -21,7 +21,7 @@ import { MessageComponent } from './message/message.component';
 import { MatCardModule } from '@angular/material/card';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     LoginComponent,
     ToursDetailComponent,
     MessageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
 
   imports: [
@@ -49,6 +49,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatOptionModule,
     MatSelectModule,
     MatCardModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
