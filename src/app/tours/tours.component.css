@@ -10,3 +10,43 @@
     display: inline-block;
   }
 
+
+.edit-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the form horizontally and vertically */
+  background-color: #fff;
+  padding: 20px;
+  z-index: 1001;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow for depth */
+}
+
+.edit-form input,
+.edit-form select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.edit-form button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.edit-form button.cancel {
+  background-color: #f44336;
+}
+
+/* Responsive styling: Adjustments for smaller screens */
+@media screen and (max-width: 600px) {
+  .edit-form {
+    width: 90%;
+  }
+}

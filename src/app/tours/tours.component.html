@@ -16,8 +16,7 @@
     <br>
   </div>
 
-  <!-- Edit form -->
-  <form *ngIf="editedTour && editedTour.id === tour.id" (submit)="saveTour()">
+  <form *ngIf="editedTour && editedTour.id === tour.id" (submit)="saveTour()" class="edit-form">
     <label>Name:</label>
     <input [(ngModel)]="editedTour.name" name="name" required>
     <label>Location:</label>
@@ -35,5 +34,5 @@
     <label>Photo:</label>
     <input [(ngModel)]="editedTour.photo" name="photo" type="file" id="photo" (change)="onFileSelected($event)">
     <button type="submit">Save</button>
-    <button type="button" (click)="cancelEdit()">Cancel</button>
+    <button type="button" (click)="cancelEdit()" class="cancel">Cancel</button>
   </form>
