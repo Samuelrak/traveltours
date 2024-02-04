@@ -16,8 +16,17 @@ import { MatSliderModule } from '@angular/material/slider';
 import { LoginComponent } from './login/login.component';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
-  declarations: [AppComponent, ToursComponent, ToursAddComponent, HomeComponent, NavBarComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    ToursComponent,
+    ToursAddComponent,
+    HomeComponent,
+    NavBarComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -29,7 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatSliderModule,
     FormsModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
