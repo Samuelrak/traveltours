@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'tours', component: ToursComponent},
   { path: 'tours-add', component: ToursAddComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'tour-detail', component: ToursDetailComponent, canActivate: [AuthGuard] },
+  { path: 'tour-detail/:id', component: ToursDetailComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

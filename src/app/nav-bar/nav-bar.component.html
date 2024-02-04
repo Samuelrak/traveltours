@@ -14,8 +14,6 @@
     <a *ngIf="isLoggedIn" (click)="onLogout()" routerLink="/">Logout</a>
   </div>
 
-
-
   <div *ngIf="loginSuccessMessage" class="success-message">
     {{ loginSuccessMessage }}
   </div>
@@ -23,3 +21,4 @@
   <div *ngIf="logoutMessage" class="logout-message">{{ logoutMessage }}</div>
 
 </div>
+

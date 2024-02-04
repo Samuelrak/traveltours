@@ -34,6 +34,18 @@ def display_tours():
 
 
   return jsonify(tours)
+@app.route('/view/<int:tour_id>', methods=['GET'])
+def view_tour(tour_id):
+  cursor.execute('SELECT id, name, location, continent, start_date, end_date, people, price, photo FROM tours WHERE id = %s', (tour_id,))
+  tour = cursor.fetchone()
+
+  if tour:
+    if 'photo' in tour and tour['photo'] is not None:
+      tour['photo'] = base64.b64encode(tour['photo']).decode('utf-8')
+
+    return jsonify(tour), 200
+  else:
+    return jsonify({'error': 'Tour not found'}), 404
 @app.route('/add', methods=['POST'])
 def add_tour():
   try:
@@ -180,7 +192,7 @@ def update_tour(tour_id):
                     price = %s
                 WHERE id = %s
             ''', (name, location, continent, start_date, end_date, people, price, tour_id))
-                    
+
         db.commit()
 
         response_data = {

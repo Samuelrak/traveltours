@@ -20,14 +20,14 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.messageService.loginErrorMessageSubject$.subscribe((message) => {
-      this.errorMessage = message;
-      if (message) {
-        setTimeout(() => {
-          this.messageService.clearLoginErrorMessage();
-        }, 1000);
-      }
-    });
+    // this.messageService.loginErrorMessageSubject$.subscribe((message) => {
+    //   this.errorMessage = message;
+    //   if (message) {
+    //     setTimeout(() => {
+    //       this.messageService.clearLoginErrorMessage();
+    //     }, 1000);
+    //   }
+    // });
   }
 
   onLogin() {

@@ -17,7 +17,10 @@ import { LoginComponent } from './login/login.component';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ToursDetailComponent } from './tours-detail/tours-detail.component';
+import { MessageComponent } from './message/message.component';
 import { MatCardModule } from '@angular/material/card';
+
+
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { MatCardModule } from '@angular/material/card';
     NavBarComponent,
     LoginComponent,
     ToursDetailComponent,
+    MessageComponent
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
