@@ -1,8 +1,7 @@
-<h2>Tours:</h2>
 <div *ngFor="let tour of tours" class="tour-box">
   <div class="tour-info">
     <span class="tour-photo">
-      <img [src]="getPhotoUrl(tour.photo)" alt="Tour Photo" [style.max-width.px]="300" [style.max-height.px]="126">
+      <img [src]="getPhotoUrl(tour.photo)" alt="Tour Photo" [style.max-width.px]="390" [style.max-height.px]="186">
     </span>
     <br>
     <p>Name: {{ tour.name }}</p>
