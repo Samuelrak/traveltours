@@ -47,6 +47,9 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !!token;
   }
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
 
 
 }

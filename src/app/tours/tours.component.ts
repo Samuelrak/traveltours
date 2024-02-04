@@ -3,7 +3,8 @@ import { ToursService } from '../services/tours.service';
 import { Tour } from '../entities/tours';
 import { format } from 'date-fns';
 import { AuthService } from '../services/auth.service';
-import { User } from '../entities/user';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tours',
@@ -16,6 +17,7 @@ export class ToursComponent implements OnInit {
   editedTour: Tour | null = null;
 
   constructor(
+    private router: Router,
     private toursService: ToursService,
     private authService: AuthService
   ) {}
@@ -133,4 +135,9 @@ export class ToursComponent implements OnInit {
       this.editedTour.photo = file;
     }
   }
+
+  navigateToDetail(): void {
+    this.router.navigate(['/tour-detail']);
+  }
+
 }

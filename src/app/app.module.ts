@@ -16,6 +16,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { LoginComponent } from './login/login.component';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ToursDetailComponent } from './tours-detail/tours-detail.component';
 import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { MatCardModule } from '@angular/material/card';
     HomeComponent,
     NavBarComponent,
     LoginComponent,
+    ToursDetailComponent,
   ],
   imports: [
     BrowserModule,
