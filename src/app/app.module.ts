@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ToursDetailComponent } from './tours-detail/tours-detail.component';
 import { MessageComponent } from './message/message.component';
 import { MatCardModule } from '@angular/material/card';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -31,7 +32,8 @@ import { MatCardModule } from '@angular/material/card';
     NavBarComponent,
     LoginComponent,
     ToursDetailComponent,
-    MessageComponent
+    MessageComponent,
+    PageNotFoundComponent
   ],
 
   imports: [
