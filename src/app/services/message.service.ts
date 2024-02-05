@@ -13,6 +13,10 @@ export class MessageService {
   public loginErrorMessageSubject$ = this.loginErrorMessageSubject.asObservable();
   private logoutMessageSubject = new Subject<string>();
   public logoutMessage$ = this.logoutMessageSubject.asObservable();
+  private errorMessageSubject = new Subject<string>();
+  public errorMessage$ = this.errorMessageSubject.asObservable(); 
+  private messageSubject = new Subject<{ message: string, isSuccess: boolean }>();
+  public message$ = this.messageSubject.asObservable();
 
   constructor() { }
   
@@ -46,6 +50,11 @@ export class MessageService {
   
   clearLogoutMessage() {
     this.logoutMessageSubject.next('');
+  }
+
+  setErrorMessageTours(message: string) {
+    this.errorMessageSubject.next(message);
+    this.clearMessageAfterDelay(this.errorMessageSubject);
   }
   
   private clearMessageAfterDelay(subject: Subject<string>): void {

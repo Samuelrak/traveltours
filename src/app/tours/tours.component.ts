@@ -4,7 +4,7 @@ import { Tour } from '../entities/tours';
 import { format } from 'date-fns';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-tours',
@@ -15,16 +15,25 @@ export class ToursComponent implements OnInit {
   tours: Tour[] = [];
   isAdmin = false;
   editedTour: Tour | null = null;
+  errorMessage: string | null = null;
 
   constructor(
     private router: Router,
     private toursService: ToursService,
-    private authService: AuthService
+    private authService: AuthService,
+    public messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.isAdmin = this.authService.getIsAdmin();
     this.fetchTours();
+    this.subscribeToErrorMessage();
+  }
+
+  private subscribeToErrorMessage(): void {
+    this.messageService.errorMessage$.subscribe((errorMessage) => {
+      this.errorMessage = errorMessage;
+    });
   }
 
   private fetchTours(): void {
@@ -33,7 +42,7 @@ export class ToursComponent implements OnInit {
         this.tours = this.formatDates(data);
       },
       (error) => {
-        console.error('Error fetching tours:', error);
+        this.messageService.setErrorMessageTours('Failed to fetch tours. Please try again later.');
       }
     );
   }
@@ -54,8 +63,7 @@ export class ToursComponent implements OnInit {
     }
 
     const date = new Date(dateString);
-    const formattedDate = format(date, 'yyyy-MM-dd'); 
-    return formattedDate;
+    return format(date, 'yyyy-MM-dd');
   }
 
   getPhotoUrl(base64Data: string): string {
@@ -75,6 +83,7 @@ export class ToursComponent implements OnInit {
         },
         (error) => {
           console.error('Error deleting tour:', error);
+          this.messageService.setErrorMessageTours('Failed to delete tour. Please try again later.');
         }
       );
     }
@@ -114,6 +123,7 @@ export class ToursComponent implements OnInit {
       },
       (error) => {
         console.error('Error updating tour:', error);
+        this.messageService.setErrorMessageTours('Failed to update tour. Please try again later.');
       }
     );
   }
@@ -129,9 +139,9 @@ export class ToursComponent implements OnInit {
       this.editedTour.photo = file;
     }
   }
+
   navigateToDetail(tourId: number): void {
     this.router.navigate(['/tour-detail', tourId]);
-
   }
 
 }

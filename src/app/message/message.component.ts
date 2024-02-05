@@ -40,5 +40,9 @@ export class MessageComponent implements OnInit {
     this.messageService.loginErrorMessageSubject$.subscribe((message) => {
       this.errorMessage = message;
     });
+
+    this.messageService.errorMessage$.subscribe((message) => {
+      this.errorMessage = message;
+    });
   }
 }
