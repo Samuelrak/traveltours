@@ -15,9 +15,10 @@ Installation
 7. Install python and angular in Visual Studio Code. If you don`t have
 8. Open command prompt in Visual Studio Code
 9. Navigate to the backend directory: `cd traveltours/Back-end` or `/Back-end`
-10. Install backend dependencies: `py -m pip install -r requirements.txt` and `py server.py`
-11. Open another command prompt in Visual Studio Code
-12. Install frontend dependencies: `npm install`
-13. Start the frontend server: `ng serve` or `npm start`
-14. Open web browser and navigate to `http://localhost:4200/`
-15. Login data: User (username: user, password: 123) and Admin (username: admin, password: 123)
+10. Install backend dependencies: `py -m pip install -r requirements.txt` and `py -m pip install pyjwt`
+11. Start the backend server: `py server.py`
+12. Open another command prompt in Visual Studio Code
+13. Install frontend dependencies: `npm install`
+14. Start the frontend server: `ng serve` or `npm start`
+15. Open web browser and navigate to `http://localhost:4200/`
+16. Login data: User (username: user, password: 123) and Admin (username: admin, password: 123)
