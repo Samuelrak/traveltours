@@ -108,7 +108,6 @@ def user_login():
 
   username = data.get('username')
   password = data.get('password')
-  app.logger.debug("Request data: %s", data)  # Add this line to log the request data
 
   try:
     cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
