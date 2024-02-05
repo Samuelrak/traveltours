@@ -7,10 +7,10 @@ Prerequisites
 
 Installation
 
-1. Clone the repository: `https://github.com/Samuelrak/traveltours/`
+1. Clone the repository: `git clone https://github.com/Samuelrak/traveltours/`
 2. Open Xampp and enable MySQL and Apache
 3. Open PhpMyAdmin and login
-4. After sucesfull login navigate to import and select `C:/<PROJECT_DIRECTORY>/traveltours/Database/traveltours.sql`
+4. After sucesfull login navigate to import and select the database `C:/<PROJECT_DIRECTORY>/traveltours/Database/traveltours.sql`
 6. Open Visual Studio Code
 7. Install python and angular in Visual Studio Code. If you don`t have
 8. Open command prompt in Visual Studio Code
