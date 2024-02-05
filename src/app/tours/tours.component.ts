@@ -16,6 +16,7 @@ export class ToursComponent implements OnInit {
   isAdmin = false;
   editedTour: Tour | null = null;
   errorMessage: string | null = null;
+  successMessage: string | null = null;
 
   constructor(
     private router: Router,
@@ -27,13 +28,6 @@ export class ToursComponent implements OnInit {
   ngOnInit(): void {
     this.isAdmin = this.authService.getIsAdmin();
     this.fetchTours();
-    this.subscribeToErrorMessage();
-  }
-
-  private subscribeToErrorMessage(): void {
-    this.messageService.errorMessage$.subscribe((errorMessage) => {
-      this.errorMessage = errorMessage;
-    });
   }
 
   private fetchTours(): void {
@@ -80,6 +74,7 @@ export class ToursComponent implements OnInit {
         (response) => {
           console.log('Tour deleted successfully:', response);
           this.fetchTours();
+          this.messageService.setSuccessMessageTours('Tour deleted successfully!');
         },
         (error) => {
           console.error('Error deleting tour:', error);
@@ -120,6 +115,7 @@ export class ToursComponent implements OnInit {
         console.log('Tour updated successfully:', response);
         this.fetchTours();
         this.cancelEdit();
+        this.messageService.setSuccessMessageTours('Tour updated successfully!');
       },
       (error) => {
         console.error('Error updating tour:', error);
@@ -143,5 +139,4 @@ export class ToursComponent implements OnInit {
   navigateToDetail(tourId: number): void {
     this.router.navigate(['/tour-detail', tourId]);
   }
-
 }

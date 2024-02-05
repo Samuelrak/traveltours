@@ -13,8 +13,11 @@ export class MessageComponent implements OnInit {
   loggedUsername: string | null = null;
   isAdmin: boolean = false;
   logoutMessage: string | null = null;
+  logoutMessageSuccess: string | null = null;
   loginSuccessMessage: string | null = null;
   errorMessage: string = '';
+  saveTourMessage: string | null = null;
+  deleteTourMessage: string | null = null;
 
   constructor(private messageService: MessageService, private authService: AuthService) {}
 
@@ -37,12 +40,22 @@ export class MessageComponent implements OnInit {
       this.logoutMessage = message;
     });
 
+    this.messageService.logoutMessageSuccess$.subscribe((message) => {
+      this.logoutMessageSuccess = message;
+    });
+
     this.messageService.loginErrorMessageSubject$.subscribe((message) => {
       this.errorMessage = message;
     });
 
     this.messageService.errorMessage$.subscribe((message) => {
       this.errorMessage = message;
+    });
+    this.messageService.saveMessage$.subscribe((message) => {
+      this.saveTourMessage = message;
+    });
+    this.messageService.deleteMessage$.subscribe((message) => {
+      this.deleteTourMessage = message;
     });
   }
 }

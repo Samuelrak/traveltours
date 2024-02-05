@@ -1,9 +1,12 @@
 <div *ngIf="loginSuccessMessage" class="success-message">
-    {{ loginSuccessMessage }}
-  </div>
+  {{ loginSuccessMessage }}
+</div>
 
-  <div *ngIf="logoutMessage" class="logout-message">{{ logoutMessage }}</div>
+<div *ngIf="logoutMessage" class="logout-message">{{ logoutMessage }}</div>
+<div *ngIf="logoutMessageSuccess" class="logout-message-success">{{ logoutMessageSuccess }}</div>
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
 
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
+<div *ngIf="saveTourMessage" class="success-message">{{ saveTourMessage }}</div>
+<div *ngIf="deleteTourMessage" class="success-message">{{ deleteTourMessage }}</div>
