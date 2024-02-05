@@ -26,6 +26,7 @@ export class ToursService {
   updateTour(tourId: number, updatedTour: Tour | FormData): Observable<Tour[]> {
     return this.http.put<Tour[]>(`${this.apiUrl}/put/${tourId}`, updatedTour);
   }
+  
   getTour(tourId: number): Observable<Tour> {
     return this.http.get<Tour>(`${this.apiUrl}/view/${tourId}`);
   }

@@ -1,4 +1,5 @@
 Prerequisites
+
 - XAMMP: Version 8.2.12
 - MySQL: Version 10.4.32
 - Angular: Version 14.2.13
@@ -13,8 +14,8 @@ Installation
 6. Open Visual Studio Code
 7. Install python and angular in Visual Studio Code. If you don`t have
 8. Open command prompt in Visual Studio Code
-9. Navigate to the project directory: `cd traveltours/Back-end` or `/Back-end`
-10. Run in command prompt: `py -m pip install -r requirements.txt` and `py server.py`
+9. Navigate to the backend directory: `cd traveltours/Back-end` or `/Back-end`
+10. Install backend dependencies: `py -m pip install -r requirements.txt` and `py server.py`
 11. Open another command prompt in Visual Studio Code
 12. Install frontend dependencies: `npm install`
 13. Start the frontend server: `ng serve` or `npm start`

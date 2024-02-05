@@ -57,7 +57,6 @@ def add_tour():
     people = int(request.form['people'])
     price = float(request.form['price'])
     photo = request.files['photo']
-    app.logger.debug(photo)
 
     start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
     end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
@@ -109,7 +108,7 @@ def user_login():
 
   username = data.get('username')
   password = data.get('password')
-  app.logger.debug("Backend username", username)
+  app.logger.debug("Request data: %s", data)  # Add this line to log the request data
 
   try:
     cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
@@ -118,7 +117,6 @@ def user_login():
     if user and user['password'] == password:
 
       is_admin = user['isadmin'] == 1
-      app.logger.debug(is_admin)
       payload = {'username': username, 'isadmin': is_admin}
       token = jwt.encode(payload, secret_key, algorithm='HS256')
       session_id = str(uuid.uuid4())
@@ -151,7 +149,6 @@ def logout():
       return jsonify({'success': False, 'error': 'User not found'}), 404
 
   except Exception as e:
-    app.logger.error("An error occurred while querying the database: %s", str(e))
     return jsonify({'success': False, 'error': 'An error occurred while processing your request'}), 500
 
 @app.route('/put/<int:tour_id>', methods=['PUT'])
@@ -159,7 +156,6 @@ def update_tour(tour_id):
     try:
         print(f"Updating tour with ID: {tour_id}")
 
-        # Extract updated data from the request
         name = request.form['name']
         location = request.form['location']
         continent = request.form['continent']
@@ -174,7 +170,6 @@ def update_tour(tour_id):
         start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
         end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
 
-        # Check if photo is provided in the update
         if photo:
             photo_content = photo.read()
             cursor.execute('''

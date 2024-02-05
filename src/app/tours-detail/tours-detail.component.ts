@@ -5,9 +5,6 @@ import { ToursService } from '../services/tours.service';
 import { Tour } from '../entities/tours';
 import { format } from 'date-fns';
 
-
-
-
 @Component({
   selector: 'app-tours-detail',
   templateUrl: './tours-detail.component.html',
@@ -61,7 +58,7 @@ export class ToursDetailComponent implements OnInit {
     }
 
     const date = new Date(dateString);
-    const formattedDate = format(date, 'yyyy-MM-dd'); // Format consistently
+    const formattedDate = format(date, 'yyyy-MM-dd');
     return formattedDate;
   }
 

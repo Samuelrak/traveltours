@@ -15,19 +15,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private route: ActivatedRoute, 
-    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
-    // this.messageService.loginErrorMessageSubject$.subscribe((message) => {
-    //   this.errorMessage = message;
-    //   if (message) {
-    //     setTimeout(() => {
-    //       this.messageService.clearLoginErrorMessage();
-    //     }, 1000);
-    //   }
-    // });
   }
 
   onLogin() {

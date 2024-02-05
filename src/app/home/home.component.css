@@ -5,10 +5,10 @@
 
 .wrapper {
   height: 100vh;
-  overflow-y: auto; /* Keep scrollbar for the .wrapper */
+  overflow-y: auto; 
   overflow-x: hidden;
   perspective: 10px;
-  position: fixed; /* Fixed position to cover the entire viewport */
+  position: fixed; 
   width: 100%;
 }
 
@@ -64,7 +64,6 @@ header {
 
 section {
   font-size: 2rem;
-  /* padding: 2rem; */
   background-color: #333;
   color: white;
   height: 300px;
@@ -101,7 +100,7 @@ footer {
 
 }
 
-/* Media query for smaller screens */
+
 @media screen and (max-width: 600px) {
   .title {
     font-size: 4rem;
@@ -109,12 +108,12 @@ footer {
 
   .title2 {
     font-size: 4rem;
-    padding-top: 200px; /* Adjust padding for smaller screens */
+    padding-top: 200px; 
   }
 
   section {
     font-size: 1.5rem;
-    padding-top: 3rem; /* Adjust padding for smaller screens */
+    padding-top: 3rem; 
   }
 
   footer {
@@ -122,7 +121,6 @@ footer {
   }
 }
 
-/* Media query for medium-sized screens */
 @media screen and (min-width: 601px) and (max-width: 1024px) {
   .title {
     font-size: 5rem;
@@ -130,12 +128,12 @@ footer {
 
   .title2 {
     font-size: 5rem;
-    padding-top: 270px; /* Adjust padding for medium-sized screens */
+    padding-top: 270px; 
   }
 
   section {
     font-size: 1.8rem;
-    padding-top: 4rem; /* Adjust padding for medium-sized screens */
+    padding-top: 4rem;
   }
 
   footer {
@@ -143,7 +141,7 @@ footer {
   }
 }
 
-/* Media query for larger screens */
+
 @media screen and (min-width: 1025px) {
   .title {
     font-size: 7rem;

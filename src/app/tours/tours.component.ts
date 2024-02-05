@@ -54,7 +54,7 @@ export class ToursComponent implements OnInit {
     }
 
     const date = new Date(dateString);
-    const formattedDate = format(date, 'yyyy-MM-dd'); // Format consistently
+    const formattedDate = format(date, 'yyyy-MM-dd'); 
     return formattedDate;
   }
 
@@ -81,27 +81,22 @@ export class ToursComponent implements OnInit {
   }
 
   editTour(tour: Tour): void {
-    // Set editedTour to the selected tour for editing
     this.editedTour = { ...tour };
   }
 
   saveTour() {
     console.log('Saving tour:', this.editedTour);
 
-    // Convert the editedTour data to FormData
     const formData = new FormData();
     if (this.editedTour) {
       for (const [key, value] of Object.entries(this.editedTour)) {
         if (value !== null && value !== undefined) {
           if (key.includes('_date') && value instanceof Date) {
-            // Format date values only if value is a Date object
             const formattedDate = format(value, 'yyyy-MM-dd');
             formData.append(key, formattedDate);
           } else if (key === 'photo' && value instanceof File) {
-            // Handle photo file separately
             formData.append('photo', value);
           } else if (typeof value === 'object' && !(value instanceof File)) {
-            // If the value is an object (not a File), stringify it
             formData.append(key, JSON.stringify(value));
           } else {
             formData.append(key, value.toString());
@@ -123,7 +118,6 @@ export class ToursComponent implements OnInit {
     );
   }
 
-  // Cancel editing and exit edit mode
   cancelEdit(): void {
     this.editedTour = null;
   }

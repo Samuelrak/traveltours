@@ -15,11 +15,11 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Center the form horizontally and vertically */
+  transform: translate(-50%, -50%); 
   background-color: #fff;
   padding: 20px;
   z-index: 1001;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow for depth */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
 }
 
 .edit-form input,
@@ -44,7 +44,6 @@
   background-color: #f44336;
 }
 
-/* Responsive styling: Adjustments for smaller screens */
 @media screen and (max-width: 600px) {
   .edit-form {
     width: 90%;

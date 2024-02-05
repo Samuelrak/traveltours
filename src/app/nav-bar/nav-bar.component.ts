@@ -28,7 +28,6 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.authService.hasToken();
 
-    // Check if user information exists in local storage
     const storedUsername = localStorage.getItem('loggedInUsername');
     if (storedUsername) {
       this.loggedUsername = storedUsername;
@@ -41,7 +40,6 @@ export class NavBarComponent implements OnInit {
     this.messageService.loggedInStatusChange.subscribe((value) => {
       this.isLoggedIn = value;
       this.loggedUsername = this.authService.getUsername();
-      // Store logged-in user information in local storage
       if (this.isLoggedIn) {
         localStorage.setItem('loggedInUsername', this.loggedUsername || '');
         this.isAdmin = this.authService.getIsAdmin();
