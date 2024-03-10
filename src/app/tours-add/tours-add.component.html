@@ -24,14 +24,28 @@
         <label for="end_date">End Date:</label>
         <br>
         <input type="date" id="end_date" formControlName="end_date">
+        <div
+            *ngIf="tourForm.hasError('dateRange') && (tourForm.get('start_date')?.dirty || tourForm.get('end_date')?.dirty)">
+            End date must be after start date.
+        </div>
+
+
         <br>
         <label for="people">Number of People:</label>
+
         <br>
         <input type="number" id="people" formControlName="people">
+        <div *ngIf="tourForm.get('people')?.hasError('peopleRange') && tourForm.get('people')?.dirty">
+            Number of people needs to be more than 6
+        </div>
         <br>
         <label for="price">Price:</label>
         <br>
         <input type="number" id="price" formControlName="price"> €
+        <div *ngIf="tourForm.get('price')?.hasError('priceRange') && tourForm.get('price')?.dirty">
+            Price must be greater than zero.
+        </div>
+
         <br>
         <label for="photo">Select Photo:</label>
         <br>
@@ -43,5 +57,8 @@
         <div *ngIf="showMessage" [ngClass]="{'success-message': isSuccess, 'error-message': isError}">
             {{ message }}
         </div>
+
+
+
     </form>
 </div>

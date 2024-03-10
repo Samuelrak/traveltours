@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToursService } from '../services/tours.service';
+import {
+  dateRangeValidator,
+  priceValidator,
+  peopleValidator,
+} from '../custom-validators/tour-edit-validators';
 
 @Component({
   selector: 'app-tours-add',
@@ -8,27 +13,35 @@ import { ToursService } from '../services/tours.service';
   styleUrls: ['./tours-add.component.css'],
 })
 export class ToursAddComponent implements OnInit {
-  tourForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    location: ['', Validators.required],
-    continent: ['', Validators.required],
-    start_date: ['', Validators.required],
-    end_date: ['', Validators.required],
-    people: ['', Validators.required],
-    price: ['', Validators.required],
-    photo: [null, Validators.required]
-  });
+  tourForm: FormGroup = this.fb.group(
+    {
+      name: ['', Validators.required],
+      location: ['', Validators.required],
+      continent: ['', Validators.required],
+      start_date: ['', Validators.required],
+      end_date: ['', Validators.required],
+      people: ['', [Validators.required, peopleValidator()]],
+      price: ['', [Validators.required, priceValidator()]],
+      photo: [null, Validators.required],
+    },
+    { validator: dateRangeValidator() }
+  );
 
   showMessage: boolean = false;
   isError: boolean = false;
   isSuccess: boolean = false;
   message: string = '';
-  continents: string[] = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Australia', 'Antarctica'];
+  continents: string[] = [
+    'Africa',
+    'Asia',
+    'Europe',
+    'North America',
+    'South America',
+    'Australia',
+    'Antarctica',
+  ];
 
-  constructor(
-    private fb: FormBuilder,
-    private toursService: ToursService
-  ) {}
+  constructor(private fb: FormBuilder, private toursService: ToursService) {}
 
   ngOnInit(): void {}
 
@@ -83,7 +96,7 @@ export class ToursAddComponent implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     this.tourForm.patchValue({
-      photo: file
+      photo: file,
     });
   }
 
