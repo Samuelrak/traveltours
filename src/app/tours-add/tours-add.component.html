@@ -19,7 +19,13 @@
         <br>
         <label for="start_date">Start Date:</label>
         <br>
+
         <input type="date" id="start_date" formControlName="start_date">
+        <div *ngIf="tourForm.get('start_date')?.hasError('startRange') && tourForm.get('start_date')?.dirty">
+            Start date must be from tomorrow on
+        </div>
+
+
         <br>
         <label for="end_date">End Date:</label>
         <br>

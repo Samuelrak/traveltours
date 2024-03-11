@@ -5,6 +5,7 @@ import {
   dateRangeValidator,
   priceValidator,
   peopleValidator,
+  startDateValidator,
 } from '../custom-validators/tour-edit-validators';
 
 @Component({
@@ -18,7 +19,7 @@ export class ToursAddComponent implements OnInit {
       name: ['', Validators.required],
       location: ['', Validators.required],
       continent: ['', Validators.required],
-      start_date: ['', Validators.required],
+      start_date: ['', [Validators.required, startDateValidator()]],
       end_date: ['', Validators.required],
       people: ['', [Validators.required, peopleValidator()]],
       price: ['', [Validators.required, priceValidator()]],
@@ -109,5 +110,12 @@ export class ToursAddComponent implements OnInit {
 
   private resetForm() {
     this.tourForm.reset();
+  }
+
+  logStartDateDirty() {
+    console.log(
+      'Start Date Control Dirty State:',
+      this.tourForm.get('start_date')?.dirty
+    );
   }
 }

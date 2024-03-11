@@ -35,3 +35,21 @@ export function peopleValidator(): ValidatorFn {
     return null;
   };
 }
+export function startDateValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const startDate = control.value;
+    console.log('start date is:' + startDate);
+
+    const currentDate = new Date();
+    console.log('current date is:' + currentDate);
+
+    const selectedDate = new Date(startDate);
+
+    if (selectedDate && selectedDate <= currentDate) {
+      console.log('val executed');
+
+      return { startRange: true };
+    }
+    return null;
+  };
+}
