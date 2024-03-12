@@ -30,7 +30,10 @@ export function peopleValidator(): ValidatorFn {
     const people = control.value;
 
     if (people && people <= 6) {
-      return { peopleRange: true };
+      return { peopleMinRange: true };
+    }
+    if (people && people >= 15) {
+      return { peopleMaxRange: true };
     }
     return null;
   };

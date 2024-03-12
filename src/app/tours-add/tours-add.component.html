@@ -5,6 +5,9 @@
         <label for="name">Tour Name:</label>
         <br>
         <input type="text" id="name" formControlName="name">
+        <div *ngIf="tourForm.get('name')?.hasError('maxlength') && tourForm.get('name')?.dirty">
+            Name cannot be more than 15 characters long.
+        </div>
         <br>
         <label for="location">Location:</label>
         <br>
@@ -41,8 +44,11 @@
 
         <br>
         <input type="number" id="people" formControlName="people">
-        <div *ngIf="tourForm.get('people')?.hasError('peopleRange') && tourForm.get('people')?.dirty">
-            Number of people needs to be more than 6
+        <div *ngIf="tourForm.get('people')?.hasError('peopleMinRange') && tourForm.get('people')?.dirty">
+            Number of people needs to be more than 6.
+        </div>
+        <div *ngIf="tourForm.get('people')?.hasError('peopleMaxRange') && tourForm.get('people')?.dirty">
+            Number of people needs to be less than 15.
         </div>
         <br>
         <label for="price">Price:</label>
