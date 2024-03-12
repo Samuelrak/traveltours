@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToursService } from '../services/tours.service';
+import { MessageService } from '../services/message.service';
 import {
   dateRangeValidator,
   priceValidator,
@@ -42,7 +43,11 @@ export class ToursAddComponent implements OnInit {
     'Antarctica',
   ];
 
-  constructor(private fb: FormBuilder, private toursService: ToursService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toursService: ToursService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -60,35 +65,15 @@ export class ToursAddComponent implements OnInit {
 
       this.toursService.addTour(formData).subscribe(
         (newTour) => {
-          console.log('New tour added:', newTour);
-
-          this.showMessage = true;
-          this.isSuccess = true;
-          this.isError = false;
-          this.message = 'Tour added successfully!';
-
-          setTimeout(() => {
-            this.hideMessage();
-          }, 2000);
-
+          this.messageService.setSuccessMessageTours(
+            'Tour added successfully!'
+          );
           this.resetForm();
         },
         (error) => {
-          console.error('Error:', error);
-
-          const errorMessage =
-            error.error && error.error.message
-              ? error.error.message
-              : 'Failed to add tour. Please try again.';
-
-          this.showMessage = true;
-          this.isSuccess = false;
-          this.isError = true;
-          this.message = errorMessage;
-
-          setTimeout(() => {
-            this.hideMessage();
-          }, 2000);
+          this.messageService.setErrorMessageTours(
+            'Failed to add tour. Please try again.'
+          );
         }
       );
     }
@@ -99,13 +84,6 @@ export class ToursAddComponent implements OnInit {
     this.tourForm.patchValue({
       photo: file,
     });
-  }
-
-  private hideMessage(): void {
-    this.showMessage = false;
-    this.isSuccess = false;
-    this.isError = false;
-    this.message = '';
   }
 
   private resetForm() {

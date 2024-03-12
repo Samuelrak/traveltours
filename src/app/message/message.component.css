@@ -1,0 +1,8 @@
+ .logout-message, .error-message {
+    background-color: red;
+    color: white;
+  }
+  .logout-message-success, .success-message{
+        background-color: green;
+    color: white;
+  }

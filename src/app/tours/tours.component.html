@@ -19,6 +19,7 @@
   </div>
 
   <form *ngIf="editedTour && editedTour.id === tour.id" (submit)="saveTour()" class="edit-form">
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
     <label>Name:</label>
     <input [(ngModel)]="editedTour.name" name="name" required>
@@ -39,4 +40,5 @@
     <button type="submit">Save</button>
     <button type="button" (click)="cancelEdit()" class="cancel">Cancel</button>
   </form>
+
 </div>

@@ -48,9 +48,6 @@ export class UsersService {
   onLogin(username: string, password: string) {
     if (!username.trim() || !password.trim() || password === '' || username === '') {
       this.messageService.setLoginErrorMessage('Please fill username and password');
-      setTimeout(() => {
-        this.messageService.clearLoginErrorMessage();
-      }, 1000);
       return;
     }
     this.login(username, password).subscribe(
@@ -93,7 +90,7 @@ export class UsersService {
           this.messageService.setIsLoggedIn(false);
           this.router.navigate(['/']); 
 
-          this.messageService.setLogoutMessage('Logout successful.'); 
+          this.messageService.setLogoutMessageSuccess('Logout successful.'); 
         },
         (error) => {
           console.error('Logout failed', error);
@@ -103,9 +100,5 @@ export class UsersService {
     } else {
       this.messageService.setLogoutMessage('Missing token.'); 
     }
-
-    setTimeout(() => {
-      this.messageService.clearLogoutMessage();
-    }, 1000);
   }
 }
