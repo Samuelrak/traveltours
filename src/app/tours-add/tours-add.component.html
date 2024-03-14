@@ -5,6 +5,9 @@
         <label for="name">Tour Name:</label>
         <br>
         <input type="text" id="name" formControlName="name">
+        <div *ngIf="tourForm.get('name')?.hasError('maxlength') && tourForm.get('name')?.dirty">
+            Name cannot be more than 15 characters long.
+        </div>
         <br>
         <label for="location">Location:</label>
         <br>
@@ -19,19 +22,42 @@
         <br>
         <label for="start_date">Start Date:</label>
         <br>
+
         <input type="date" id="start_date" formControlName="start_date">
+        <div *ngIf="tourForm.get('start_date')?.hasError('startRange') && tourForm.get('start_date')?.dirty">
+            Start date must be from tomorrow on
+        </div>
+
+
         <br>
         <label for="end_date">End Date:</label>
         <br>
         <input type="date" id="end_date" formControlName="end_date">
+        <div
+            *ngIf="tourForm.hasError('dateRange') && (tourForm.get('start_date')?.dirty || tourForm.get('end_date')?.dirty)">
+            End date must be after start date.
+        </div>
+
+
         <br>
         <label for="people">Number of People:</label>
+
         <br>
         <input type="number" id="people" formControlName="people">
+        <div *ngIf="tourForm.get('people')?.hasError('peopleMinRange') && tourForm.get('people')?.dirty">
+            Number of people needs to be more than 6.
+        </div>
+        <div *ngIf="tourForm.get('people')?.hasError('peopleMaxRange') && tourForm.get('people')?.dirty">
+            Number of people needs to be less than 15.
+        </div>
         <br>
         <label for="price">Price:</label>
         <br>
         <input type="number" id="price" formControlName="price"> €
+        <div *ngIf="tourForm.get('price')?.hasError('priceRange') && tourForm.get('price')?.dirty">
+            Price must be greater than zero.
+        </div>
+
         <br>
         <label for="photo">Select Photo:</label>
         <br>
@@ -43,5 +69,8 @@
         <div *ngIf="showMessage" [ngClass]="{'success-message': isSuccess, 'error-message': isError}">
             {{ message }}
         </div>
+
+
+
     </form>
 </div>

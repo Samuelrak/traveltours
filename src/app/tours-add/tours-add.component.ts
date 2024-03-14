@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToursService } from '../services/tours.service';
 import { MessageService } from '../services/message.service';
+import {
+  dateRangeValidator,
+  priceValidator,
+  peopleValidator,
+  startDateValidator,
+} from '../custom-validators/tour-edit-validators';
 
 @Component({
   selector: 'app-tours-add',
@@ -9,28 +15,38 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./tours-add.component.css'],
 })
 export class ToursAddComponent implements OnInit {
-  tourForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    location: ['', Validators.required],
-    continent: ['', Validators.required],
-    start_date: ['', Validators.required],
-    end_date: ['', Validators.required],
-    people: ['', Validators.required],
-    price: ['', Validators.required],
-    photo: [null, Validators.required]
-  });
+  tourForm: FormGroup = this.fb.group(
+    {
+      name: ['', [Validators.required, Validators.maxLength(15)]],
+      location: ['', Validators.required],
+      continent: ['', Validators.required],
+      start_date: ['', [Validators.required, startDateValidator()]],
+      end_date: ['', Validators.required],
+      people: ['', [Validators.required, peopleValidator()]],
+      price: ['', [Validators.required, priceValidator()]],
+      photo: [null, Validators.required],
+    },
+    { validator: dateRangeValidator() }
+  );
 
   showMessage: boolean = false;
   isError: boolean = false;
   isSuccess: boolean = false;
   message: string = '';
-  continents: string[] = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Australia', 'Antarctica'];
+  continents: string[] = [
+    'Africa',
+    'Asia',
+    'Europe',
+    'North America',
+    'South America',
+    'Australia',
+    'Antarctica',
+  ];
 
   constructor(
     private fb: FormBuilder,
     private toursService: ToursService,
-    private messageService: MessageService 
-
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {}
@@ -49,11 +65,15 @@ export class ToursAddComponent implements OnInit {
 
       this.toursService.addTour(formData).subscribe(
         (newTour) => {
-          this.messageService.setSuccessMessageTours('Tour added successfully!'); 
+          this.messageService.setSuccessMessageTours(
+            'Tour added successfully!'
+          );
           this.resetForm();
         },
         (error) => {
-          this.messageService.setErrorMessageTours('Failed to add tour. Please try again.');
+          this.messageService.setErrorMessageTours(
+            'Failed to add tour. Please try again.'
+          );
         }
       );
     }
@@ -62,7 +82,7 @@ export class ToursAddComponent implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     this.tourForm.patchValue({
-      photo: file
+      photo: file,
     });
   }
 
