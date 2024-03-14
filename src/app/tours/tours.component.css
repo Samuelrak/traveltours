@@ -70,4 +70,9 @@
   cursor: pointer;
   margin-right: 10px;
 }
+.error-message {
+  display: block; /* Ensure the element is displayed as a block */
+  color: red; /* Optionally, set the color of the error message */
+}
+
 

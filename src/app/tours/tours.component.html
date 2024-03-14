@@ -22,11 +22,20 @@
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
     <label>Name:</label>
-    <input [(ngModel)]="editedTour.name" name="name" required>
+    <input [(ngModel)]="editedTour.name" name="name" #name="ngModel" maxlength="20">
+    <div *ngIf="editedTour.name.length === 20 && name.dirty" class="error-message">
+      Name cannot exceed 20 characters.
+    </div>
+    
     <label>Location:</label>
-    <input [(ngModel)]="editedTour.location" name="location" required>
+    <input [(ngModel)]="editedTour.location" name="location" #location="ngModel" maxlength="20">
+    <div *ngIf="editedTour.location.length === 20 && location.dirty" class="error-message">
+      Location cannot exceed 20 characters.
+    </div>
+
     <label>Continent:</label>
-    <input [(ngModel)]="editedTour.continent" name="continent" required>
+    <input [(ngModel)]="editedTour.continent" name="continent" #continent="ngModel">
+
     <label>Start Date:</label>
     <input [(ngModel)]="editedTour.start_date" name="start_date" required>
     <label>End Date:</label>
