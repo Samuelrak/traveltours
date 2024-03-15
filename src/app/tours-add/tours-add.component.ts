@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToursService } from '../services/tours.service';
 import { MessageService } from '../services/message.service';
+import { ContinentService } from '../services/continent.service';
 import {
   dateRangeValidator,
   priceValidator,
@@ -15,6 +16,29 @@ import {
   styleUrls: ['./tours-add.component.css'],
 })
 export class ToursAddComponent implements OnInit {
+  showMessage: boolean = false;
+  isError: boolean = false;
+  isSuccess: boolean = false;
+  message: string = '';
+  
+  //Continents are now declared in continent.service.ts
+  // continents: string[] = [
+  //   'Africa',
+  //   'Asia',
+  //   'Europe',
+  //   'North America',
+  //   'South America',
+  //   'Australia',
+  //   'Antarctica',
+  // ];
+
+  constructor(
+    private fb: FormBuilder,
+    private toursService: ToursService,
+    private messageService: MessageService,
+    private continentService: ContinentService
+  ) {}
+
   tourForm: FormGroup = this.fb.group(
     {
       name: ['', [Validators.required, Validators.maxLength(15)]],
@@ -29,25 +53,7 @@ export class ToursAddComponent implements OnInit {
     { validator: dateRangeValidator() }
   );
 
-  showMessage: boolean = false;
-  isError: boolean = false;
-  isSuccess: boolean = false;
-  message: string = '';
-  continents: string[] = [
-    'Africa',
-    'Asia',
-    'Europe',
-    'North America',
-    'South America',
-    'Australia',
-    'Antarctica',
-  ];
-
-  constructor(
-    private fb: FormBuilder,
-    private toursService: ToursService,
-    private messageService: MessageService
-  ) {}
+ 
 
   ngOnInit(): void {}
 
@@ -90,10 +96,14 @@ export class ToursAddComponent implements OnInit {
     this.tourForm.reset();
   }
 
-  logStartDateDirty() {
-    console.log(
-      'Start Date Control Dirty State:',
-      this.tourForm.get('start_date')?.dirty
-    );
+  // logStartDateDirty() {
+  //   console.log(
+  //     'Start Date Control Dirty State:',
+  //     this.tourForm.get('start_date')?.dirty
+  //   );
+  // }
+
+  get continents(): string[]{
+    return this.continentService.continents;
   }
 }

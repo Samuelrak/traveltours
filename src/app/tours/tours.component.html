@@ -26,7 +26,7 @@
     <div *ngIf="editedTour.name.length === 20 && name.dirty" class="error-message">
       Name cannot exceed 20 characters.
     </div>
-    
+
     <label>Location:</label>
     <input [(ngModel)]="editedTour.location" name="location" #location="ngModel" maxlength="20">
     <div *ngIf="editedTour.location.length === 20 && location.dirty" class="error-message">
@@ -34,7 +34,10 @@
     </div>
 
     <label>Continent:</label>
-    <input [(ngModel)]="editedTour.continent" name="continent">
+    <select [(ngModel)]="editedTour.continent" name="continent">
+      <option *ngFor="let continent of continents" [value]="continent">{{ continent }}</option>
+    </select>
+
 
     <label>Start Date:</label>
     <input [(ngModel)]="editedTour.start_date" name="start_date" required>

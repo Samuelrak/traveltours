@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from '../services/message.service';
+import { ContinentService } from '../services/continent.service';
 
 @Component({
   selector: 'app-tours',
@@ -17,17 +18,20 @@ export class ToursComponent implements OnInit {
   editedTour: Tour | null = null;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  continents!: string[];
 
   constructor(
     private router: Router,
     private toursService: ToursService,
     private authService: AuthService,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private continentService: ContinentService
   ) {}
 
   ngOnInit(): void {
     this.isAdmin = this.authService.getIsAdmin();
     this.fetchTours();
+    this.continents = this.continentService.continents;
   }
 
   private fetchTours(): void {
