@@ -42,7 +42,7 @@ export class ToursAddComponent implements OnInit {
   tourForm: FormGroup = this.fb.group(
     {
       name: ['', [Validators.required, Validators.maxLength(15)]],
-      location: ['', Validators.required],
+      location: ['', [Validators.required, Validators.maxLength(20)]],
       continent: ['', Validators.required],
       start_date: ['', [Validators.required, startDateValidator()]],
       end_date: ['', Validators.required],

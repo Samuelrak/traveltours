@@ -10,8 +10,12 @@
         </div>
         <br>
         <label for="location">Location:</label>
+       
         <br>
         <input type="text" id="location" formControlName="location">
+        <div *ngIf="tourForm.get('location')?.hasError('maxlength') && tourForm.get('location')?.dirty">
+            Name cannot be more than 20 characters long.
+        </div>
         <br>
         <label for="continent">Continent:</label>
         <br>
