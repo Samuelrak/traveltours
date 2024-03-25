@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToursService } from '../services/tours.service';
 import { MessageService } from '../services/message.service';
 import { ContinentService } from '../services/continent.service';
@@ -8,6 +8,7 @@ import {
   priceValidator,
   peopleValidator,
   startDateValidator,
+  photoValidation
 } from '../custom-validators/tour-edit-validators';
 
 @Component({
@@ -48,7 +49,7 @@ export class ToursAddComponent implements OnInit {
       end_date: ['', Validators.required],
       people: ['', [Validators.required, peopleValidator()]],
       price: ['', [Validators.required, priceValidator()]],
-      photo: [null, Validators.required],
+      photo: [null, Validators.required,],
     },
     { validator: dateRangeValidator() }
   );
@@ -86,22 +87,30 @@ export class ToursAddComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
+    const files = event.target.files;
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    const file = files[0];
+
+    const photoSize = file.size /1024;
+  
+    //Necessary steps for displaying error msg
+    const photoControl = this.tourForm.get('photo') as FormControl; // Get the photo control
+    const validator = photoValidation(photoSize); // Create validator function
+    photoControl.setValidators(validator); // Set validators for the photo control
+    photoControl.updateValueAndValidity(); // Trigger validation
+  
     this.tourForm.patchValue({
       photo: file,
     });
   }
+  
 
   private resetForm() {
     this.tourForm.reset();
   }
-
-  // logStartDateDirty() {
-  //   console.log(
-  //     'Start Date Control Dirty State:',
-  //     this.tourForm.get('start_date')?.dirty
-  //   );
-  // }
 
   get continents(): string[]{
     return this.continentService.continents;
