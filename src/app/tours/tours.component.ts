@@ -17,6 +17,7 @@ export class ToursComponent implements OnInit {
   editedTour: Tour | null = null;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  isValidFile: boolean = true;
 
   constructor(
     private router: Router,
@@ -64,7 +65,7 @@ export class ToursComponent implements OnInit {
     if (base64Data) {
       return 'data:image/jpeg;base64,' + base64Data;
     } else {
-      return 'path/to/default/photo.jpg';
+      return 'assets/image_not_found.jpg';
     }
   }
 
@@ -130,10 +131,54 @@ export class ToursComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
-
-    if (this.editedTour) {
-      this.editedTour.photo = file;
+    const allowedTypes = ['image/jpeg', 'image/png'];
+    if (file && allowedTypes.includes(file.type)) {
+      this.isValidFile = true;
+    } else {
+      this.isValidFile = false;
+      event.target.value = null;
     }
+  }
+
+  isValidStartDate(dateString: string): boolean {
+    const date = new Date(dateString);
+    return !isNaN(date.getTime()) && date > new Date();
+  }
+
+  isValidEndDate(): boolean {
+    if (!this.editedTour || !this.editedTour.start_date || !this.editedTour.end_date) {
+      return false;
+    }
+    const startDate = new Date(this.editedTour.start_date);
+    const endDate = new Date(this.editedTour.end_date);
+    return endDate > startDate;
+  }
+  
+  isValidContinent(continent: string): boolean {
+    const validContinents = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Australia', 'Antarctica'];
+    return validContinents.includes(continent);
+  }
+
+  isValidPeople(people: number | undefined): boolean {
+    return people !== undefined && people > 6 && people < 15;
+  }
+
+  isValidPrice(price: number | undefined): boolean {
+    return price !== undefined && price >= 0;
+  }
+
+  isFormValid(): boolean {
+    if (!this.editedTour) return false;
+
+    const { name, location, start_date, end_date, people, price } = this.editedTour;
+    return name.length <= 20 &&
+      location.length <= 20 &&
+      this.isValidContinent(this.editedTour.continent) &&
+      this.isValidStartDate(start_date) &&
+      this.isValidEndDate() &&
+      new Date(start_date) < new Date(end_date) &&
+      this.isValidPeople(people) &&
+      this.isValidPrice(price);
   }
 
   navigateToDetail(tourId: number): void {

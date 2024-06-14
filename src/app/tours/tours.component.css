@@ -12,7 +12,8 @@
 
 
 .edit-form {
-  margin-top: 40px;
+
+  margin-bottom: 600px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -71,8 +72,8 @@
   margin-right: 10px;
 }
 .error-message {
-  display: block; /* Ensure the element is displayed as a block */
-  color: red; /* Optionally, set the color of the error message */
+  display: block; 
+  color: red; 
 }
 
 

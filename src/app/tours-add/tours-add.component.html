@@ -5,13 +5,16 @@
         <label for="name">Tour Name:</label>
         <br>
         <input type="text" id="name" formControlName="name">
-        <div *ngIf="tourForm.get('name')?.hasError('maxlength') && tourForm.get('name')?.dirty">
+        <div *ngIf="tourForm.get('name')?.hasError('maxlength') && tourForm.get('name')?.dirty" class="error-text">
             Name cannot be more than 15 characters long.
         </div>
         <br>
         <label for="location">Location:</label>
         <br>
         <input type="text" id="location" formControlName="location">
+        <div *ngIf="tourForm.get('location')?.hasError('maxlength') && tourForm.get('location')?.dirty" class="error-text">
+            Location cannot be more than 15 characters long.
+        </div>
         <br>
         <label for="continent">Continent:</label>
         <br>
@@ -24,8 +27,8 @@
         <br>
 
         <input type="date" id="start_date" formControlName="start_date">
-        <div *ngIf="tourForm.get('start_date')?.hasError('startRange') && tourForm.get('start_date')?.dirty">
-            Start date must be from tomorrow on
+        <div *ngIf="tourForm.get('start_date')?.hasError('startRange') && tourForm.get('start_date')?.dirty" class="error-text">
+            Start date must be from tomorrow on.
         </div>
 
 
@@ -34,7 +37,8 @@
         <br>
         <input type="date" id="end_date" formControlName="end_date">
         <div
-            *ngIf="tourForm.hasError('dateRange') && (tourForm.get('start_date')?.dirty || tourForm.get('end_date')?.dirty)">
+            *ngIf="tourForm.hasError('dateRange') && (tourForm.get('start_date')?.dirty || tourForm.get('end_date')?.dirty)"
+             class="error-text">
             End date must be after start date.
         </div>
 
@@ -44,17 +48,17 @@
 
         <br>
         <input type="number" id="people" formControlName="people">
-        <div *ngIf="tourForm.get('people')?.hasError('peopleMinRange') && tourForm.get('people')?.dirty">
+        <div *ngIf="tourForm.get('people')?.hasError('peopleMinRange') && tourForm.get('people')?.dirty" class="error-text">
             Number of people needs to be more than 6.
         </div>
-        <div *ngIf="tourForm.get('people')?.hasError('peopleMaxRange') && tourForm.get('people')?.dirty">
+        <div *ngIf="tourForm.get('people')?.hasError('peopleMaxRange') && tourForm.get('people')?.dirty" class="error-text">
             Number of people needs to be less than 15.
         </div>
         <br>
         <label for="price">Price:</label>
         <br>
         <input type="number" id="price" formControlName="price"> €
-        <div *ngIf="tourForm.get('price')?.hasError('priceRange') && tourForm.get('price')?.dirty">
+        <div *ngIf="tourForm.get('price')?.hasError('priceRange') && tourForm.get('price')?.dirty" class="error-text">
             Price must be greater than zero.
         </div>
 
@@ -62,6 +66,9 @@
         <label for="photo">Select Photo:</label>
         <br>
         <input type="file" id="photo" (change)="onFileSelected($event)" formControlName="photo">
+        <div *ngIf="tourForm.get('photo')?.hasError('fileType')" class="error-text">
+          Only JPG or PNG files are allowed.
+        </div>
         <br>
         <br>
         <button type="submit" [disabled]="tourForm.invalid">Submit</button>
