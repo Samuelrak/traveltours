@@ -66,7 +66,7 @@ export class ToursDetailComponent implements OnInit {
     if (base64Data) {
       return 'data:image/jpeg;base64,' + base64Data;
     } else {
-      return 'path/to/default/photo.jpg';
+      return 'assets/image_not_found.jpg';
     }
   }
 

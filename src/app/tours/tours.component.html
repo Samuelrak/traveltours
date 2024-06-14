@@ -34,20 +34,47 @@
     </div>
 
     <label>Continent:</label>
-    <input [(ngModel)]="editedTour.continent" name="continent">
+    <input [(ngModel)]="editedTour.continent" name="continent" required>
+    <div *ngIf="!isValidContinent(editedTour.continent)" class="error-message">
+      Type a valid 7 continent with the first letter uppercase.
+    </div>
 
     <label>Start Date:</label>
-    <input [(ngModel)]="editedTour.start_date" name="start_date" required>
+    <input [(ngModel)]="editedTour.start_date" name="start_date" type="date" required>
+    <div *ngIf="!isValidStartDate(editedTour.start_date)" class="error-message">
+      Start date must be from tomorrow on.
+    </div>
+
     <label>End Date:</label>
-    <input [(ngModel)]="editedTour.end_date" name="end_date" required>
+    <input [(ngModel)]="editedTour.end_date" name="end_date" type="date" required>
+    <div *ngIf="!isValidEndDate()" class="error-message">
+      End date must be after start date.
+    </div>
+    
     <label>People:</label>
     <input [(ngModel)]="editedTour.people" name="people" type="number" required>
+    <div *ngIf="editedTour.people && !isValidPeople(editedTour.people)" class="error-message">
+      <div *ngIf="editedTour.people < 6">
+        Number of people needs to be more than 6.
+      </div>
+      <div *ngIf="editedTour.people > 15">
+        Number of people needs to be less than 15.
+      </div>
+    </div>
+
     <label>Price:</label>
     <input [(ngModel)]="editedTour.price" name="price" type="number" required>
+    <div *ngIf="!isValidPrice(editedTour.price)" class="error-message">
+      Price must be a non-negative number.
+    </div>
+
     <label>Photo:</label>
-    <input [(ngModel)]="editedTour.photo" name="photo" type="file" id="photo" (change)="onFileSelected($event)">
-    <button type="submit">Save</button>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    <div *ngIf="!isValidFile" class="error-message">
+      Only JPG or PNG files are allowed.
+    </div>
+
+    <button type="submit" [disabled]="!isFormValid()">Save</button>
     <button type="button" (click)="cancelEdit()" class="cancel">Cancel</button>
   </form>
-
 </div>

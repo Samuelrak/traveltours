@@ -18,7 +18,7 @@ export class ToursAddComponent implements OnInit {
   tourForm: FormGroup = this.fb.group(
     {
       name: ['', [Validators.required, Validators.maxLength(15)]],
-      location: ['', Validators.required],
+      location: ['', [Validators.required, Validators.maxLength(15)]],
       continent: ['', Validators.required],
       start_date: ['', [Validators.required, startDateValidator()]],
       end_date: ['', Validators.required],
@@ -81,9 +81,15 @@ export class ToursAddComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
-    this.tourForm.patchValue({
-      photo: file,
-    });
+    const allowedTypes = ['image/jpeg', 'image/png'];
+    if (file && allowedTypes.includes(file.type)) {
+      this.tourForm.patchValue({
+        photo: file,
+      });
+      this.tourForm.get('photo')?.setErrors(null);
+    } else {
+      this.tourForm.get('photo')?.setErrors({ fileType: true });
+    }
   }
 
   private resetForm() {
