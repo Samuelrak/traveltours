@@ -12,7 +12,7 @@
     <app-message></app-message>
   <div class="nav-links">
     <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
-    <a *ngIf="isLoggedIn" (click)="onLogout()" routerLink="/">Logout</a>
+    <a *ngIf="isLoggedIn" (click)="onLogout()">Logout</a>
   </div>
 
 
