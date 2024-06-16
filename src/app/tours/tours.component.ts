@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from '../services/message.service';
+import { ContinentService } from '../services/continent.service';
 
 @Component({
   selector: 'app-tours',
@@ -18,17 +19,22 @@ export class ToursComponent implements OnInit {
   errorMessage: string | null = null;
   successMessage: string | null = null;
   isValidFile: boolean = true;
-
+  isValidSize: boolean = true;
+  continents!: string[];
+  tourForm: any;
+  
   constructor(
     private router: Router,
     private toursService: ToursService,
     private authService: AuthService,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private continentService: ContinentService
   ) {}
 
   ngOnInit(): void {
     this.isAdmin = this.authService.getIsAdmin();
     this.fetchTours();
+    this.continents = this.continentService.continents;
   }
 
   private fetchTours(): void {
@@ -132,12 +138,23 @@ export class ToursComponent implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/png'];
+  
     if (file && allowedTypes.includes(file.type)) {
       this.isValidFile = true;
     } else {
       this.isValidFile = false;
-      event.target.value = null;
+      event.target.value = null; 
+      return;
     }
+  
+    const photoSize = file.size / 1024; 
+  
+    this.isValidSize = photoSize < 500;
+  
+    this.tourForm.patchValue({
+      photo: file,
+    });
+    return;
   }
 
   isValidStartDate(dateString: string): boolean {

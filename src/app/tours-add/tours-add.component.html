@@ -10,10 +10,11 @@
         </div>
         <br>
         <label for="location">Location:</label>
+       
         <br>
         <input type="text" id="location" formControlName="location">
         <div *ngIf="tourForm.get('location')?.hasError('maxlength') && tourForm.get('location')?.dirty" class="error-text">
-            Location cannot be more than 15 characters long.
+            Location cannot be more than 20 characters long.
         </div>
         <br>
         <label for="continent">Continent:</label>
@@ -67,7 +68,10 @@
         <br>
         <input type="file" id="photo" (change)="onFileSelected($event)" formControlName="photo">
         <div *ngIf="tourForm.get('photo')?.hasError('fileType')" class="error-text">
-          Only JPG or PNG files are allowed.
+            Only JPG or PNG files are allowed.
+        </div>
+        <div *ngIf="tourForm.get('photo')?.hasError('photoSizeVal') && tourForm.get('photo')?.touched" class="error-text">
+            Photo size must be smaller than 500kB.
         </div>
         <br>
         <br>
@@ -76,8 +80,5 @@
         <div *ngIf="showMessage" [ngClass]="{'success-message': isSuccess, 'error-message': isError}">
             {{ message }}
         </div>
-
-
-
     </form>
 </div>

@@ -26,7 +26,7 @@
     <div *ngIf="editedTour.name.length === 20 && name.dirty" class="error-message">
       Name cannot exceed 20 characters.
     </div>
-    
+
     <label>Location:</label>
     <input [(ngModel)]="editedTour.location" name="location" #location="ngModel" maxlength="20">
     <div *ngIf="editedTour.location.length === 20 && location.dirty" class="error-message">
@@ -34,10 +34,10 @@
     </div>
 
     <label>Continent:</label>
-    <input [(ngModel)]="editedTour.continent" name="continent" required>
-    <div *ngIf="!isValidContinent(editedTour.continent)" class="error-message">
-      Type a valid 7 continent with the first letter uppercase.
-    </div>
+    <select [(ngModel)]="editedTour.continent" name="continent">
+      <option *ngFor="let continent of continents" [value]="continent">{{ continent }}</option>
+    </select>
+
 
     <label>Start Date:</label>
     <input [(ngModel)]="editedTour.start_date" name="start_date" type="date" required>
@@ -73,8 +73,11 @@
     <div *ngIf="!isValidFile" class="error-message">
       Only JPG or PNG files are allowed.
     </div>
+    <div *ngIf="!isValidSize" class="error-message">
+      Photo size must be smaller than 500kB.
+    </div>
 
-    <button type="submit" [disabled]="!isFormValid()">Save</button>
+    <button type="submit" [disabled]="!isFormValid()" [style.opacity]="!isFormValid() ? 0.5 : 1">Save</button>
     <button type="button" (click)="cancelEdit()" class="cancel">Cancel</button>
   </form>
 </div>
