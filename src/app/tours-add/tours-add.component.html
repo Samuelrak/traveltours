@@ -70,7 +70,7 @@
         <div *ngIf="tourForm.get('photo')?.hasError('fileType')" class="error-text">
             Only JPG or PNG files are allowed.
         </div>
-        <div *ngIf="tourForm.get('photo')?.hasError('photoSizeVal') && tourForm.get('photo')?.touched">
+        <div *ngIf="tourForm.get('photo')?.hasError('photoSizeVal') && tourForm.get('photo')?.touched" class="error-text">
             Photo size must be smaller than 500kB.
         </div>
         <br>
