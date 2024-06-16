@@ -142,22 +142,28 @@ export class ToursComponent implements OnInit {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/png'];
   
-    if (file && allowedTypes.includes(file.type)) {
-      this.isValidFile = true;
+    this.isValidFile = true;
+    this.isValidSize = true;
+  
+    if (file) {
+      if (!allowedTypes.includes(file.type)) {
+        this.isValidFile = false;
+        return;
+      }
+  
+      const photoSize = file.size / 1024;
+  
+      if (photoSize > 500) {
+        this.isValidSize = false;
+        return;
+      }
+  
+      if (this.editedTour) {
+        this.editedTour.photo = file;
+      }
     } else {
       this.isValidFile = false;
-      event.target.value = null; 
-      return;
     }
-  
-    const photoSize = file.size / 1024; 
-  
-    this.isValidSize = photoSize < 500;
-  
-    this.tourForm.patchValue({
-      photo: file,
-    });
-    return;
   }
 
   isValidStartDate(dateString: string): boolean {
@@ -180,7 +186,7 @@ export class ToursComponent implements OnInit {
   }
 
   isValidPeople(people: number | undefined): boolean {
-    return people !== undefined && (people === 6 || people === 15 || (people > 6 && people < 15));
+    return people !== undefined && people > 6 && people < 15;
   }
 
   isValidPrice(price: number | undefined): boolean {
