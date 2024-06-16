@@ -180,7 +180,7 @@ export class ToursComponent implements OnInit {
   }
 
   isValidPeople(people: number | undefined): boolean {
-    return people !== undefined && people > 6 && people < 15;
+    return people !== undefined && (people === 6 || people === 15 || (people > 6 && people < 15));
   }
 
   isValidPrice(price: number | undefined): boolean {
