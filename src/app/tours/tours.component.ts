@@ -96,7 +96,10 @@ export class ToursComponent implements OnInit {
   }
 
   saveTour() {
-    console.log('Saving tour:', this.editedTour);
+    if (!this.isFormModified()) {
+      this.messageService.setErrorMessageTours('The form is not updated! Please update it. ');
+      return;
+    }
 
     const formData = new FormData();
     if (this.editedTour) {
@@ -196,6 +199,17 @@ export class ToursComponent implements OnInit {
       new Date(start_date) < new Date(end_date) &&
       this.isValidPeople(people) &&
       this.isValidPrice(price);
+  }
+
+  private isFormModified(): boolean {
+    if (!this.editedTour) return false;
+  
+    const originalTour = this.tours.find(tour => tour.id === this.editedTour?.id);
+    if (!originalTour) return false;
+  
+    return (Object.keys(this.editedTour) as (keyof Tour)[]).some((key) => {
+      return this.editedTour![key] !== originalTour[key];
+    });
   }
 
   navigateToDetail(tourId: number): void {

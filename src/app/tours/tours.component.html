@@ -18,7 +18,9 @@
     <br>
   </div>
 
-  <form *ngIf="editedTour && editedTour.id === tour.id" (submit)="saveTour()" class="edit-form">
+  <div class="form-container">
+    <form *ngIf="editedTour && editedTour.id === tour.id" (submit)="saveTour()" class="edit-form">
+  
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
     <label>Name:</label>
