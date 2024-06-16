@@ -56,3 +56,13 @@ export function startDateValidator(): ValidatorFn {
     return null;
   };
 }
+export function photoValidation(photoSize:number): ValidatorFn {
+  return (): ValidationErrors | null => {
+  
+    if (photoSize >= 500) {
+      return { photoSizeVal: true };
+    }
+
+    return null;
+  };
+}
