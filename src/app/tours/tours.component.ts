@@ -189,16 +189,17 @@ export class ToursComponent implements OnInit {
 
   isFormValid(): boolean {
     if (!this.editedTour) return false;
-
+  
     const { name, location, start_date, end_date, people, price } = this.editedTour;
-    return name.length <= 20 &&
-      location.length <= 20 &&
-      this.isValidContinent(this.editedTour.continent) &&
-      this.isValidStartDate(start_date) &&
-      this.isValidEndDate() &&
-      new Date(start_date) < new Date(end_date) &&
-      this.isValidPeople(people) &&
-      this.isValidPrice(price);
+  
+    return !!name && name.length <= 20 &&
+      !!location && location.length <= 20 &&
+      !!this.editedTour.continent && this.isValidContinent(this.editedTour.continent) &&
+      !!start_date && this.isValidStartDate(start_date) &&
+      !!end_date && this.isValidEndDate() &&
+      !!people && this.isValidPeople(people) &&
+      price !== null && this.isValidPrice(price) &&
+      new Date(start_date) < new Date(end_date);
   }
 
   private isFormModified(): boolean {
