@@ -56,10 +56,10 @@
     <label>People:</label>
     <input [(ngModel)]="editedTour.people" name="people" type="number" required>
     <div *ngIf="editedTour.people && !isValidPeople(editedTour.people)" class="error-message">
-      <div *ngIf="editedTour.people < 6">
+      <div *ngIf="editedTour.people <= 6">
         Number of people needs to be more than 6.
       </div>
-      <div *ngIf="editedTour.people > 15">
+      <div *ngIf="editedTour.people >= 15">
         Number of people needs to be less than 15.
       </div>
     </div>
@@ -79,7 +79,7 @@
       Photo size must be smaller than 500kB.
     </div>
 
-    <button type="submit" [disabled]="!isFormValid()" [style.opacity]="!isFormValid() ? 0.5 : 1">Save</button>
+    <button type="submit" [disabled]="!isFormValid() || !isValidFile || !isValidSize" [style.opacity]="(!isFormValid() || !isValidFile || !isValidSize) ? 0.5 : 1">Save</button>
     <button type="button" (click)="cancelEdit()" class="cancel">Cancel</button>
   </form>
 </div>
