@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ToursService } from '../services/tours.service'; 
 import { Tour } from '../entities/tours';
 import { format } from 'date-fns';
+import { Router } from '@angular/router';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-tours-detail',
@@ -16,7 +18,9 @@ export class ToursDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private toursService: ToursService
+    private toursService: ToursService,
+    private router: Router,
+    public messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +42,7 @@ export class ToursDetailComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching tour details:', error);
+        this.messageService.setErrorMessageTours('Failed to fetch tour. Please try again later.');
       }
     );
   }
@@ -68,6 +73,10 @@ export class ToursDetailComponent implements OnInit {
     } else {
       return 'assets/image_not_found.jpg';
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/tours']);
   }
 
 }
