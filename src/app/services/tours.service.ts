@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Tour } from '../entities/tours';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { Tour } from '../entities/tours';
 export class ToursService {
   private apiUrl = 'http://127.0.0.1:5000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getTours(): Observable<Tour[]> {
     return this.http.get<Tour[]>(`${this.apiUrl}/view`).pipe(
@@ -41,6 +42,14 @@ export class ToursService {
       catchError(this.handleError)
     );
   }
+
+  navigateToDetail(tourId: number): void {
+    this.router.navigate(['/tour-detail', tourId]).catch(error => {
+      console.log('server is not responding')
+      catchError(this.handleError)
+    });
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Server is not responding. Try again';
