@@ -5,10 +5,11 @@
     <a routerLink="/tours">All tours</a>
     <a *ngIf="isAdmin" routerLink="/tours-add">Add</a>
   </div>
-  <div>
-    <p *ngIf="isLoggedIn && loggedUsername" class="welcome-message">{{ 'Welcome ' + loggedUsername + "!"}}</p>
-
+ 
+  <div *ngIf="isLoggedIn && loggedUsername" class="welcome-message">
+    Welcome {{ loggedUsername }}!
   </div>
+  
     <app-message></app-message>
   <div class="nav-links">
     <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>

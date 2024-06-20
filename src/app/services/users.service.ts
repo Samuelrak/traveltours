@@ -57,8 +57,17 @@ export class UsersService {
         this.authService.setIsAdmin(response.isadmin);
         this.messageService.setIsLoggedIn(true);
         this.messageService.setLoginSuccessMessage('Login successful');
-        this.router.navigate(['']); 
+
+        const returnUrl = sessionStorage.getItem('returnUrl') || '/';
+        sessionStorage.removeItem('returnUrl'); 
+        this.router.navigateByUrl(returnUrl);
       },
+      (error) => {
+        let errorMessage = 'Login failed. Please check your credentials';
+        this.messageService.setLoginErrorMessage(errorMessage);
+        
+        return throwError(() => new Error(errorMessage));
+      }
     );
   }
 
